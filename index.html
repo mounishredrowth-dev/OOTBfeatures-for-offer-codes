@@ -1,0 +1,2291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamics 365 for Banking: Complete Offer Codes Implementation Guide</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;500;600;700&family=Consolas&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: #323130;
+            background: #f3f2f1;
+            padding: 20px;
+        }
+        
+        .master-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        
+        /* Header Section */
+        .banking-header {
+            background: linear-gradient(135deg, #0078d4 0%, #005a9e 50%, #003d6b 100%);
+            color: white;
+            padding: 80px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .banking-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.05) 0%, transparent 50%);
+        }
+        
+        .banking-header h1 {
+            font-size: 3.5em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            letter-spacing: -0.5px;
+        }
+        
+        .banking-header .subtitle {
+            font-size: 1.5em;
+            opacity: 0.95;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            line-height: 1.4;
+        }
+        
+        .banking-header .client-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 10px 25px;
+            border-radius: 30px;
+            margin-top: 30px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        /* Navigation */
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            background: white;
+            border-bottom: 2px solid #e1dfdd;
+            padding: 20px 60px;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+        
+        .nav-item {
+            padding: 15px;
+            background: #f3f2f1;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            color: #605e5c;
+            border: 2px solid transparent;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background: #0078d4;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,120,212,0.3);
+        }
+        
+        /* Content Sections */
+        .content-wrapper {
+            padding: 60px;
+        }
+        
+        .section {
+            margin-bottom: 80px;
+            page-break-inside: avoid;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 4px solid #0078d4;
+        }
+        
+        .section-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #0078d4, #005a9e);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            margin-right: 30px;
+            color: white;
+            box-shadow: 0 8px 20px rgba(0,120,212,0.3);
+        }
+        
+        .section-title h2 {
+            font-size: 2.8em;
+            color: #323130;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .section-title p {
+            color: #605e5c;
+            font-size: 1.2em;
+            font-weight: 400;
+        }
+        
+        /* Info Boxes */
+        .info-box {
+            background: #f3f2f1;
+            border-left: 6px solid #0078d4;
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 0 12px 12px 0;
+        }
+        
+        .info-box h4 {
+            color: #0078d4;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .info-box h4::before {
+            content: 'ℹ️';
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+        
+        .warning-box {
+            background: #fff4ce;
+            border-left-color: #ffc107;
+        }
+        
+        .warning-box h4 { color: #8a6d00; }
+        .warning-box h4::before { content: '⚠️'; }
+        
+        .success-box {
+            background: #dff6dd;
+            border-left-color: #107c10;
+        }
+        
+        .success-box h4 { color: #107c10; }
+        .success-box h4::before { content: '✅'; }
+        
+        .banking-box {
+            background: #e8f4ff;
+            border-left-color: #0078d4;
+        }
+        
+        .banking-box h4 { color: #005a9e; }
+        .banking-box h4::before { content: '🏦'; }
+        
+        /* Detailed Cards */
+        .detail-card {
+            background: white;
+            border: 2px solid #e1dfdd;
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        
+        .detail-card:hover {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            border-color: #0078d4;
+        }
+        
+        .detail-card h3 {
+            color: #0078d4;
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f3f2f1;
+            display: flex;
+            align-items: center;
+        }
+        
+        .detail-card h3 .number {
+            background: #0078d4;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 0.7em;
+            font-weight: 700;
+        }
+        
+        /* Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 25px 0;
+            font-size: 0.95em;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .data-table th {
+            background: #0078d4;
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.5px;
+        }
+        
+        .data-table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid #e1dfdd;
+            background: white;
+            vertical-align: top;
+        }
+        
+        .data-table tr:hover td {
+            background: #f3f2f1;
+        }
+        
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        /* Product Tags */
+        .product-tag {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin: 3px;
+        }
+        
+        .tag-dda { background: #e8f4ff; color: #005a9e; }
+        .tag-credit { background: #ffe8e8; color: #d83b01; }
+        .tag-hsa { background: #e8fff0; color: #107c10; }
+        .tag-merchant { background: #fff4e6; color: #8a6d00; }
+        .tag-positive { background: #f0e8ff; color: #5c2d91; }
+        .tag-nondda { background: #ffe8f4; color: #c239b3; }
+        .tag-referral { background: #e8fffe; color: #038387; }
+        .tag-mail { background: #fff0e8; color: #d83b01; }
+        
+        /* Code Blocks */
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 25px;
+            border-radius: 12px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            margin: 20px 0;
+            border: 1px solid #333;
+        }
+        
+        .code-comment { color: #6a9955; }
+        .code-keyword { color: #569cd6; }
+        .code-string { color: #ce9178; }
+        
+        /* Process Flow */
+        .process-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 40px 0;
+            padding: 30px;
+            background: #f3f2f1;
+            border-radius: 16px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .process-step {
+            flex: 1;
+            min-width: 200px;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            position: relative;
+            border-top: 4px solid #0078d4;
+        }
+        
+        .process-step::after {
+            content: '→';
+            position: absolute;
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2em;
+            color: #0078d4;
+            font-weight: bold;
+        }
+        
+        .process-step:last-child::after {
+            content: none;
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: #0078d4;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.3em;
+            margin: 0 auto 15px;
+        }
+        
+        .step-title {
+            font-weight: 700;
+            color: #323130;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .step-desc {
+            font-size: 0.9em;
+            color: #605e5c;
+            line-height: 1.5;
+        }
+        
+        /* Checkbox Lists */
+        .checklist {
+            list-style: none;
+            margin: 20px 0;
+        }
+        
+        .checklist li {
+            padding: 15px 0 15px 45px;
+            position: relative;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 1.05em;
+        }
+        
+        .checklist li::before {
+            content: '☐';
+            position: absolute;
+            left: 0;
+            font-size: 1.8em;
+            color: #0078d4;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .checklist li.checked::before {
+            content: '☑';
+            color: #107c10;
+        }
+        
+        /* Definition List */
+        .def-list dt {
+            font-weight: 700;
+            color: #0078d4;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+        }
+        
+        .def-list dt::before {
+            content: '▶';
+            margin-right: 10px;
+            font-size: 0.8em;
+        }
+        
+        .def-list dd {
+            margin-left: 25px;
+            color: #605e5c;
+            line-height: 1.8;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        /* Two Column Layout */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 30px 0;
+        }
+        
+        .col-box {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 12px;
+            border: 2px solid #e1dfdd;
+        }
+        
+        .col-box h4 {
+            color: #0078d4;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e1dfdd;
+        }
+        
+        /* Status Indicators */
+        .status {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        
+        .status-ootb { background: #dff6dd; color: #107c10; }
+        .status-config { background: #fff4ce; color: #8a6d00; }
+        .status-custom { background: #fde7e9; color: #a80000; }
+        .status-partial { background: #e8f4ff; color: #005a9e; }
+        
+        /* Footer */
+        .document-footer {
+            background: #323130;
+            color: white;
+            padding: 60px;
+            text-align: center;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+        
+        .footer-col h4 {
+            color: #0078d4;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col li {
+            padding: 8px 0;
+            opacity: 0.8;
+        }
+        
+        /* Print Styles */
+        @media print {
+            body { background: white; }
+            .master-container { box-shadow: none; }
+            .sticky-nav { display: none; }
+            .section { break-inside: avoid; }
+            .detail-card { break-inside: avoid; }
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .two-col { grid-template-columns: 1fr; }
+            .process-step::after { content: '↓'; right: 50%; top: 100%; transform: translateX(50%); }
+            .nav-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        
+        @media (max-width: 768px) {
+            .banking-header { padding: 40px 30px; }
+            .banking-header h1 { font-size: 2.2em; }
+            .content-wrapper { padding: 30px; }
+            .section-title h2 { font-size: 2em; }
+            .process-flow { flex-direction: column; }
+            .process-step { width: 100%; }
+            .process-step::after { content: '↓'; right: 50%; top: 100%; transform: translateX(50%); }
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+        
+        /* Highlight Text */
+        .highlight {
+            background: linear-gradient(120deg, #ffe8a8 0%, #ffe8a8 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 40%;
+            background-position: 0 88%;
+            padding: 0 4px;
+            font-weight: 600;
+        }
+        
+        .code-word {
+            background: #f3f2f1;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9em;
+            color: #d83b01;
+            border: 1px solid #e1dfdd;
+        }
+    </style>
+</head>
+<body>
+    <div class="master-container">
+        <!-- HEADER -->
+        <div class="banking-header">
+            <h1>Dynamics 365 for Banking</h1>
+            <div class="subtitle">Complete Offer Codes & Promotional Campaigns Implementation Guide<br>Covering Every Banking Product, Process, and Regulatory Requirement</div>
+            <div class="client-badge">🏦 Enterprise Banking Solution | 100% OOTB Features + Custom Extensions</div>
+        </div>
+        
+        <!-- NAVIGATION -->
+        <div class="sticky-nav">
+            <div class="nav-grid">
+                <div class="nav-item active" onclick="scrollToSection('overview')">📋 Overview</div>
+                <div class="nav-item" onclick="scrollToSection('new-account')">🆕 New Account</div>
+                <div class="nav-item" onclick="scrollToSection('campaigns')">📢 Campaigns</div>
+                <div class="nav-item" onclick="scrollToSection('preapproved')">💳 Pre-Approved</div>
+                <div class="nav-item" onclick="scrollToSection('technical')">⚙️ Technical</div>
+                <div class="nav-item" onclick="scrollToSection('compliance')">📜 Compliance</div>
+                <div class="nav-item" onclick="scrollToSection('implementation')">🚀 Implementation</div>
+                <div class="nav-item" onclick="scrollToSection('operations')">🔧 Operations</div>
+            </div>
+        </div>
+        
+        <div class="content-wrapper">
+            
+            <!-- SECTION 1: EXECUTIVE OVERVIEW -->
+            <div class="section" id="overview">
+                <div class="section-header">
+                    <div class="section-icon">📋</div>
+                    <div class="section-title">
+                        <h2>Executive Overview</h2>
+                        <p>Understanding Offer Codes in Banking Context</p>
+                    </div>
+                </div>
+                
+                <div class="info-box banking-box">
+                    <h4>What Are Offer Codes in Banking?</h4>
+                    <p><strong>Simple Explanation:</strong> Offer codes are special "passwords" or "keys" that give customers rewards, discounts, or special benefits when they open accounts, refer friends, or use specific banking products. Think of them like coupons at a grocery store, but for bank accounts and services.</p>
+                </div>
+                
+                <div class="detail-card">
+                    <h3><span class="number">1</span>Your Bank's Current Offer Code Structure</h3>
+                    <p style="margin-bottom: 20px; font-size: 1.1em;">Based on your requirements, here is the complete breakdown of your offer code ecosystem:</p>
+                    
+                    <table class="data-table">
+                        <tr>
+                            <th>Category</th>
+                            <th>Sub-Category</th>
+                            <th>Description</th>
+                            <th>Products Covered</th>
+                            <th>Code Type</th>
+                        </tr>
+                        <tr>
+                            <td rowspan="2"><strong>1. New Account Offers</strong></td>
+                            <td>a) Refer a Friend</td>
+                            <td>Existing customers refer new customers; both get rewards</td>
+                            <td>
+                                <span class="product-tag tag-dda">DDA</span>
+                                <span class="product-tag tag-savings">Savings</span>
+                            </td>
+                            <td>Unique per referral</td>
+                        </tr>
+                        <tr>
+                            <td>b) Mailing Codes</td>
+                            <td>Direct mail campaigns with promo codes to attract new customers</td>
+                            <td>
+                                <span class="product-tag tag-dda">DDA</span>
+                                <span class="product-tag tag-credit">Credit</span>
+                            </td>
+                            <td>Batch generated</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="5"><strong>2. Campaign Offer Codes</strong></td>
+                            <td>a) Credit Card</td>
+                            <td>Promotional APR, bonus points, waived annual fees</td>
+                            <td>
+                                <span class="product-tag tag-credit">Credit Cards</span>
+                            </td>
+                            <td>Campaign specific</td>
+                        </tr>
+                        <tr>
+                            <td>b) NON-DDA</td>
+                            <td>Non-Deposit Demand Accounts (Investment, IRA, etc.)</td>
+                            <td>
+                                <span class="product-tag tag-nondda">Investment</span>
+                                <span class="product-tag tag-nondda">IRA</span>
+                            </td>
+                            <td>Product specific</td>
+                        </tr>
+                        <tr>
+                            <td>c) Positive Pay</td>
+                            <td>Treasury management service for fraud prevention</td>
+                            <td>
+                                <span class="product-tag tag-positive">Treasury</span>
+                            </td>
+                            <td>Service discount</td>
+                        </tr>
+                        <tr>
+                            <td>d) Merchant</td>
+                            <td>Merchant services account opening incentives</td>
+                            <td>
+                                <span class="product-tag tag-merchant">Merchant Services</span>
+                            </td>
+                            <td>Processing fee credit</td>
+                        </tr>
+                        <tr>
+                            <td>e) H.S.A</td>
+                            <td>Health Savings Account opening bonuses</td>
+                            <td>
+                                <span class="product-tag tag-hsa">HSA</span>
+                            </td>
+                            <td>Cash bonus</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Pre-Approved Credit Cards</strong></td>
+                            <td>Direct Mail/Email</td>
+                            <td>Pre-qualified offers with reservation codes</td>
+                            <td>
+                                <span class="product-tag tag-credit">Credit Cards</span>
+                            </td>
+                            <td>Reservation number</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="detail-card">
+                    <h3><span class="number">2</span>How Dynamics 365 Handles These (The Big Picture)</h3>
+                    <div class="two-col">
+                        <div class="col-box">
+                            <h4>🏗️ What Dynamics 365 Provides OOTB</h4>
+                            <ul class="checklist">
+                                <li>Customer database (Dataverse)</li>
+                                <li>Campaign management tools</li>
+                                <li>Marketing automation</li>
+                                <li>Referral tracking capabilities</li>
+                                <li>Coupon code generation</li>
+                                <li>Customer journey orchestration</li>
+                                <li>Reporting and analytics</li>
+                                <li>Security and compliance tools</li>
+                            </ul>
+                        </div>
+                        <div class="col-box">
+                            <h4>🔧 What Needs Customization for Banking</h4>
+                            <ul class="checklist">
+                                <li class="checked">Core banking system integration</li>
+                                <li class="checked">Account opening workflow</li>
+                                <li class="checked">Credit decision engine connection</li>
+                                <li class="checked">Fraud checking integration</li>
+                                <li class="checked">Regulatory reporting (CRA, HMDA)</li>
+                                <li class="checked">Specific product mappings</li>
+                                <li class="checked">Reward fulfillment automation</li>
+                                <li class="checked">Pre-approval logic</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SECTION 2: NEW ACCOUNT OFFERS -->
+            <div class="section" id="new-account">
+                <div class="section-header">
+                    <div class="section-icon">🆕</div>
+                    <div class="section-title">
+                        <h2>New Account Offer Codes</h2>
+                        <p>Refer-a-Friend & Direct Mail Campaigns</p>
+                    </div>
+                </div>
+                
+                <!-- 2.1 REFER A FRIEND -->
+                <div class="detail-card">
+                    <h3><span class="number">A</span>Refer a Friend Program - Complete Implementation</h3>
+                    
+                    <div class="info-box">
+                        <h4>What is "Refer a Friend" in Banking?</h4>
+                        <p>Your existing customer (Referrer) tells their friend about your bank. The friend (Referee) opens an account using a special code. Both get money or rewards. Example: "Give $50, Get $50" - When John refers Mary, and Mary opens a checking account with code JOHN2024, John gets $50 and Mary gets $50.</p>
+                    </div>
+                    
+                    <h4 style="color: #323130; margin: 30px 0 20px 0; font-size: 1.4em;">Step-by-Step Process in Dynamics 365:</h4>
+                    
+                    <div class="process-flow">
+                        <div class="process-step">
+                            <div class="step-number">1</div>
+                            <div class="step-title">Customer Logs In</div>
+                            <div class="step-desc">Existing customer accesses referral portal via mobile app or online banking</div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">2</div>
+                            <div class="step-title">System Generates Code</div>
+                            <div class="step-desc">Dynamics 365 creates unique code: REF-[CustomerID]-[Random]</div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">3</div>
+                            <div class="step-title">Friend Uses Code</div>
+                            <div class="step-desc">Referee enters code during account opening application</div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">4</div>
+                            <div class="step-title">Validation & Reward</div>
+                            <div class="step-desc">System validates account opening and triggers reward payment</div>
+                        </div>
+                    </div>
+                    
+                    <h4 style="color: #323130; margin: 30px 0 20px 0; font-size: 1.4em;">Dynamics 365 Entities & Configuration:</h4>
+                    
+                    <table class="data-table">
+                        <tr>
+                            <th>Component</th>
+                            <th>D365 Entity/Feature</th>
+                            <th>Configuration Details</th>
+                            <th>Banking Data Fields</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Referrer</strong></td>
+                            <td>Contact (Customer)</td>
+                            <td>Existing customer record with active accounts</td>
+                            <td>Customer ID, Account Number, Account Status, Referral Eligibility Flag</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Referral Code</strong></td>
+                            <td>Marketing Coupon (Custom)</td>
+                            <td>Auto-generated unique identifier</td>
+                            <td>Code Pattern: REF-XXXX-XXXX, Expiry Date (90 days), Max Uses: 5</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Referee</strong></td>
+                            <td>Lead → Contact</td>
+                            <td>New prospect converted to customer</td>
+                            <td>Referred By (Lookup), Referral Code Used, Application Date</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Reward</strong></td>
+                            <td>Custom Entity: Referral Reward</td>
+                            <td>Tracks who gets paid what and when</td>
+                            <td>Reward Amount ($50), Status (Pending/Paid), Payment Method, 1099 Flag</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Account Opening</strong></td>
+                            <td>Integration with Core Banking</td>
+                            <td>Real-time API to check account status</td>
+                            <td>Account Open Date, Account Type (DDA/Savings), Minimum Balance Met</td>
+                        </tr>
+                    </table>
+                    
+                    <h4 style="color: #323130; margin: 30px 0 20px 0; font-size: 1.4em;">Detailed Field Specifications:</h4>
+                    
+                    <dl class="def-list">
+                        <dt>Referral Code Generation Logic</dt>
+                        <dd>
+                            <strong>Format:</strong> REF-[Last4OfAccount]-[Random4Digits]<br>
+                            <strong>Example:</strong> REF-7890-4521<br>
+                            <strong>Uniqueness:</strong> Guaranteed unique via Dataverse duplicate detection rule<br>
+                            <strong>Expiration:</strong> 90 days from generation (configurable)<br>
+                            <strong>Usage Limit:</strong> Maximum 5 successful referrals per customer per quarter (configurable)<br>
+                            <strong>Character Set:</strong> Uppercase letters (excluding I, O, 1, 0 to avoid confusion) + Numbers
+                        </dd>
+                        
+                        <dt>Validation Rules (OOTB + Custom)</dt>
+                        <dd>
+                            <strong>Referrer Validation:</strong><br>
+                            • Account must be open > 90 days<br>
+                            • Account status = Active (not dormant, not closed)<br>
+                            • No fraud flags<br>
+                            • Not employed by the bank (REG O check)<br><br>
+                            
+                            <strong>Referee Validation:</strong><br>
+                            • New customer (SSN/TIN not in system)<br>
+                            • Age 18+<br>
+                            • Not on OFAC/sanctions list<br>
+                            • Meets account opening requirements (ChexSystems clear)
+                        </dd>
+                        
+                        <dt>Reward Fulfillment Conditions</dt>
+                        <dd>
+                            <strong>Trigger Events:</strong><br>
+                            1. Referee account opened<br>
+                            2. Initial deposit received (minimum $25)<br>
+                            3. Account remains open for 30 days<br>
+                            4. No early closure (chargeback if closed < 90 days)<br><br>
+                            
+                            <strong>Payment Methods:</strong><br>
+                            • Direct deposit to referrer's DDA<br>
+                            • Statement credit<br>
+                            • Check mailed (for closed accounts)<br>
+                            • 1099-INT or 1099-MISC generation for tax reporting
+                        </dd>
+                    </dl>
+                    
+                    <div class="warning-box">
+                        <h4>Regulatory Compliance Requirements</h4>
+                        <p><strong>Truth in Savings (Reg DD):</strong> Must disclose bonus/interest as APY if it affects rate<br>
+                        <strong>Unfair or Deceptive Acts (UDAAP):</strong> Cannot advertise "free money" without conditions<br>
+                        <strong>Bank Secrecy Act:</strong> Monitor for structuring (multiple small referrals)<br>
+                        <strong>Tax Reporting:</strong> $600+ in rewards requires 1099-MISC<br>
+                        <strong>Privacy:</strong> Cannot share referrer info with referee without consent</p>
+                    </div>
+                </div>
+                
+                <!-- 2.2 MAILING CODES -->
+                <div class="detail-card">
+                    <h3><span class="number">B</span>Mailing Codes (Direct Mail Campaigns)</h3>
+                    
+                    <div class="info-box">
+                        <h4>What are Mailing Codes?</h4>
+                        <p>Your bank sends physical letters to potential customers (prospects) with a special code. If they bring this letter (or enter the code online) to open an account, they get a cash bonus or waived fees. Example: "Bring this letter to any branch and use code MAIL500 to get $200 when you open a new checking account."</p>
+                    </div>
+                    
+                    <h4 style="color: #323130; margin: 30px 0 20px 0; font-size: 1.4em;">Complete Process Flow:</h4>
+                    
+                    <div class="process-flow">
+                        <div class="process-step">
+                            <div class="step-number">1</div>
+                            <div class="step-title">List Generation</div>
+                            <div class="step-desc">Marketing pulls prospect list from credit bureaus or purchased lists</div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">2</div>
+                            <div class="step-title">Code Assignment</div>
+                            <div class="step-desc">Dynamics 365 assigns unique codes to each prospect record</div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">3</div>
+                            <div class="step-title">Letter Print & Mail</div>
+                            <div class="step-desc">Integration with print vendor (TCS, Deluxe, etc.)</div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">4</div>
+                            <div class="step-title">Redemption Tracking</div>
+                            <div class="step-desc">Code entered at account opening triggers bonus</div>
+                        </div>
+                    </div>
+                    
+                    <h4 style="color: #323130; margin: 30px 0 20px 0; font-size: 1.4em;">Dynamics 365 Implementation Details:</h4>
+                    
+                    <table class="data-table">
+                        <tr>
+                            <th>Component</th>
+                            <th>Technical Implementation</th>
+                            <th>Data Flow</th>
+                            <th>Status</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Prospect List Import</strong></td>
+                            <td>Data Import Wizard or Power Automate</td>
+                            <td>CSV/Excel → Dataverse Leads</td>
+                            <td><span class="status status-ootb">OOTB</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Code Generation</strong></td>
+                            <td>Marketing Coupons + Custom Plugin</td>
+                            <td>Auto-generate on Lead creation</td>
+                            <td><span class="status status-config">Config</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Letter Template</strong></td>
+                            <td>Word Templates in D365</td>
+                            <td>Mail merge with code field</td>
+                            <td><span class="status status-ootb">OOTB</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Print Vendor Integration</strong></td>
+                            <td>Custom API or SFTP export</td>
+                            <td>Daily batch file with codes</td>
+                            <td><span class="status status-custom">Custom</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Redemption Validation</strong></td>
+                            <td>Real-time API to Core Banking</td>
+                            <td>Check code validity during app</td>
+                            <td><span class="status status-custom">Custom</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Attribution Reporting</strong></td>
+                            <td>Power BI + D365 Views</td>
+                            <td>Track which list performed best</td>
+                            <td><span class="status status-config">Config</span></td>
+                        </tr>
+                    </table>
+                    
+                    <h4 style="color: #323130; margin: 30px 0 20px 0; font-size: 1.4em;">Code Types for Direct Mail:</h4>
+                    
+                    <table class="data-table">
+                        <tr>
+                            <th>Code Type</th>
+                            <th>Format Example</th>
+                            <th>Use Case</th>
+                            <th>Tracking Level</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Unique Personal</strong></td>
+                            <td>MAIL-JDOE-78432</td>
+                            <td>High-value prospects, track individual response</td>
+                            <td>Individual</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Segment Batch</strong></td>
+                            <td>MAIL-SPRING24-A</td>
+                            <td>Zip code targeting, track segment performance</td>
+                            <td>Campaign</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Generic Promo</strong></td>
+                            <td>WELCOME200</td>
+                            <td>New mover lists, broad distribution</td>
+                            <td>Campaign only</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Branch Specific</strong></td>
+                            <td>OAKST-500</td>
+                            <td>Grand opening, branch promotion</td>
+                            <td>Branch + Campaign</td>
+                        </tr>
+                    </table>
+                    
+                    <div class="success-box">
+                        <h4>Best Practice: Waterfall Attribution</h4>
+                        <p>If a customer receives multiple mailers (March and April), the system should attribute to the most recent code entered, but track both touches for campaign effectiveness. Dynamics 365 can store multiple "Campaign Response" records per Lead.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SECTION 3: CAMPAIGN OFFER CODES -->
+            <div class="section" id="campaigns">
+                <div class="section-header">
+                    <div class="section-icon">📢</div>
+                    <div class="section-title">
+                        <h2>Campaign Offer Codes</h2>
+                        <p>Credit Cards, NON-DDA, Treasury & Merchant Services</p>
+                    </div>
+                </div>
+                
+                <!-- 3.1 CREDIT CARD CAMPAIGNS -->
+                <div class="detail-card">
+                    <h3><span class="number">A</span>Credit Card Campaign Offer Codes</h3>
+                    
+                    <div class="info-box">
+                        <h4>Credit Card Offers Explained</h4>
+                        <p>These are special deals to get customers to apply for credit cards. Examples: "0% APR for 12 months," "Earn 50,000 bonus points," "No annual fee first year." The offer code ensures they get the specific deal advertised.</p>
+                    </div>
+                    
+                    <h4 style="color: #323130; margin: 30px 0 20px 0; font-size: 1.4em;">Types of Credit Card Offer Codes:</h4>
+                    
+                    <table class="data-table">
+                        <tr>
+                            <th>Offer Type</th>
+                            <th>Code Example</th>
+                            <th>Benefit Structure</th>
+                            <th>Dynamics 365 Tracking</th>
+                        </tr>
+                        <tr>
+                            <td><strong>0% Intro APR</strong></td>
+                            <td>APR0-12MO</td>
+                            <td>No interest for 12 months on purchases/balance transfers</td>
+                            <td>Store in Opportunity.Product, sync to loan origination system</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bonus Points</strong></td>
+                            <td>PTS50K</td>
+                            <td>50,000 points after $3,000 spend in 3 months</td>
+                            <td>Custom entity: CardOffer with SpendThreshold field</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Waived Annual Fee</strong></td>
+                            <td>NOFEE1ST</td>
+                            <td>$0 annual fee first year, $95 after</td>
+                            <td>Product price list with effective dates</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Balance Transfer</strong></td>
+                            <td>BTXFER0</td>
+                            <td>0% APR on transfers + no transfer fee</td>
+                            <td>Separate opportunity line item for BT amount</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Student Card</strong></td>
+                            <td>STU-BUILD</td>
+                            <td>No credit history required, lower limit</td>
+                            <td>Segment: Student, Product: Secured Card</td>
+                        </tr>
+                    </table>
+                    
+                    <h4 style="color: #323130; margin: 30px 0 20px 0; font-size: 1.4em;">Credit Decision Integration:</h4>
+                    
+                    <div class="code-block">
+<span class="code-comment">// Pseudo-code for Credit Card Offer Application</span>
+<span class="code-keyword">IF</span> Customer.EnterCode(<span class="code-string">"PTS50K"</span>) <span class="code-keyword">THEN</span>
+    Offer = LookupOffer(<span class="code-string">"PTS50K"</span>)
+    
+    <span class="code-comment">// Check expiration</span>
+    <span class="code-keyword">IF</span> Offer.ExpiryDate >= TODAY() <span class="code-keyword">THEN</span>
+        
+        <span class="code-comment">// Send to credit decision engine</span>
+        Application.OfferCode = <span class="code-string">"PTS50K"</span>
+        Application.BonusPoints = 50000
+        Application.SpendThreshold = 3000
+        Application.TimeframeDays = 90
+        
+        <span class="code-comment">// Decision engine returns approval/denial</span>
+        <span class="code-keyword">IF</span> Decision = <span class="code-string">"APPROVED"</span> <span class="code-keyword">THEN</span>
+            CreateCreditCardAccount()
+            ScheduleBonusTracking()
+        <span class="code-keyword">END IF</span>
+    <span class="code-keyword">ELSE</span>
+        ShowError(<span class="code-string">"Offer expired"</span>)
+    <span class="code-keyword">END IF</span>
+<span class="code-keyword">END IF</span>
+                    </div>
+                    
+                    <h4 style="color: #323130; margin: 30px 0 20px 0; font-size: 1.4em;">Dynamics 365 Entities for Credit Card Tracking:</h4>
+                    
+                    <dl class="def-list">
+                        <dt>Credit Card Product Catalog</dt>
+                        <dd>
+                            <strong>Product Family:</strong> Credit Cards<br>
+                            <strong>Products:</strong> Platinum Card, Rewards Card, Student Card, Secured Card<br>
+                            <strong>Price Lists:</strong> APR rates (Prime + Margin), Annual Fees, Late Fees<br>
+                            <strong>Properties:</strong> Credit Score Range (300-579, 580-669, etc.), Max Credit Limit, Rewards Program
+                        </dd>
+                        
+                        <dt>Credit Card Opportunity</dt>
+                        <dd>
+                            <strong>Fields:</strong><br>
+                            • Offer Code (Lookup to Marketing Campaign)<br>
+                            • Applied APR (calculated based on credit score)<br>
+                            • Approved Credit Limit<br>
+                            • Balance Transfer Amount<br>
+                            • Promo Expiration Date<br>
+                            • Rewards Program Enrollment<br>
+                            • Card Art Selection
+                        </dd>
+                        
+                        <dt>Bonus Tracking Custom Entity</dt>
+                        <dd>
+                            <strong>Purpose:</strong> Track if customer met spending requirement<br>
+                            <strong>Fields:</strong><br>
+                            • Spend To Date (synced from card processor daily)<br>
+                            • Threshold Met Date<br>
+                            • Bonus Posted Date<br>
+                            • Bonus Status (Pending/Posted/Expired)<br>
+                            • Transaction History (related records)
+                        </dd>
+                    </dl>
+                </div>
+                
+                <!-- 3.2 NON-DDA -->
+                <div class="detail-card">
+                    <h3><span class="number">B</span>NON-DDA Campaign Offer Codes</h3>
+                    
+                    <div class="info-box">
+                        <h4>What is NON-DDA?</h4>
+                        <p><strong>DDA = Demand Deposit Account</strong> (checking/savings). <strong>NON-DDA</strong> means everything else: Certificates of Deposit (CDs), Individual Retirement Accounts (IRAs), Investment accounts, Money Market accounts. These often have different promotional rules because they're regulated differently (SEC vs. banking regulators).</p>
+                    </div>
+                    
+                    <h4 style="color: #323130; margin: 30px 0 20px 0; font-size: 1.4em;">NON-DDA Product Offer Codes:</h4>
+                    
+                    <table class="data-table">
+                        <tr>
+                            <th>Product</th>
+                            <th>Offer Type</th>
+                            <th>Code Example</th>
+                            <th>Regulatory Note</th>
+                        </tr>
+                        <tr>
+                            <td><strong>CD (Certificate of Deposit)</strong></td>
+                            <td>Bonus Rate</td>
+                            <td>CDBONUS-5-25</td>
+                            <td>Must disclose early withdrawal penalties (Reg DD)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IRA (Traditional/Roth)</strong></td>
+                            <td>Transfer Bonus</td>
+                            <td>IRA-ROLLOVER</td>
+                            <td>Cannot guarantee investment performance (SEC)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Money Market</strong></td>
+                            <td>Promo Rate</td>
+                            <td>MM-PROMO-4</td>
+                            <td>Limited transactions (Reg D - 6/month)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Investment Account</strong></td>
+                            <td>Free Trades</td>
+                            <td>TRADE-FREE-100</td>
+                            <td>FINRA suitability requirements</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Health Savings Inv.</strong></td>
+                            <td>Investment Waiver</td>
+                            <td>HSA-INV-WAIVE</td>
+                            <td>IRS contribution limits apply</td>
+                        </tr>
+                    </table>
+                    
+                    <div class="warning-box">
+                        <h4>Critical Regulatory Distinction</h4>
+                        <p><strong>Banking Products (DDA/CD/MM):</strong> Regulated by OCC/FDIC/Federal Reserve. Offers must comply with Truth in Savings.<br><br>
+                        <strong>Investment Products (IRA/Brokerage):</strong> Regulated by SEC/FINRA. Offers are "sales incentives" not "interest." Cannot advertise guaranteed returns. Requires suitability documentation.</p>
+                    </div>
+                    
+                    <h4 style="color: #323130; margin: 30px 0 20px 0; font-size: 1.4em;">Dynamics 365 Configuration for NON-DDA:</h4>
+                    
+                    <div class="two-col">
+                        <div class="col-box">
+                            <h4>Banking Side (D365 Sales)</h4>
+                            <ul class="checklist">
+                                <li>Product catalog with interest rates</li>
+                                <li>Opportunity tracking for account opening</li>
+                                <li>Rate hold functionality (guarantee rate for 10 days)</li>
+                                <li>Maturity date tracking for CDs</li>
+                                <li>Early withdrawal penalty calculator</li>
+                                <li>Beneficiary management</li>
+                            </ul>
+                        </div>
+                        <div class="col-box">
+                            <h4>Investment Side (D365 + Integration)</h4>
+                            <ul class="checklist">
+                                <li>Integration with brokerage platform (Fidelity, Schwab, etc.)</li>
+                                <li>Suitability questionnaire</li>
+                                <li>Risk tolerance scoring</li>
+                                <li>Investment objective documentation</li>
+                                <li>Fee disclosure tracking</li>
+                                <li>Performance reporting (not guaranteed)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 3.3 POSITIVE PAY -->
+                <div class="detail-card">
+                    <h3><span class="number">C</span>Positive Pay Campaign Offer Codes</h3>
+                    
+                    <div class="info-box">
+                        <h4>What is Positive Pay?</h4>
+                        <p>A <strong>fraud prevention service</strong> for business checking accounts. The business sends a list of checks they've written to the bank. If someone tries to cash a check not on the list, the bank rejects it. Offer codes might waive setup fees or monthly fees for the first 3 months.</p>
+                    </div>
+                    
+                    <h4 style="color: #323130; margin: 30px 0 20px 0; font-size: 1.4em;">Positive Pay Offer Structure:</h4>
+                    
+                    <table class="data-table">
+                        <tr>
+                            <th>Offer Component</th>
+                            <th>Standard Pricing</th>
+                            <th>Promotional Offer</th>
+                            <th>Code Example</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Setup Fee</strong></td>
+                            <td>$250</td>
+                            <td>Waived</td>
+                            <td>PP-SETUP-WAIVE</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Monthly Fee</strong></td>
+                            <td>$50/month</td>
+                            <td>3 months free</td>
+                            <td>PP-3MO-FREE</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Per Item Fee</strong></td>
+                            <td>$0.10 per check</td>
+                            <td>First 1000 free/month</td>
+                            <td>PP-1K-FREE</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Treasury Package</strong></td>
+                            <td>$500/month bundle</td>
+                            <td>50% off first year</td>
+                            <td>TREAS-50OFF-Y1</td>
+                        </tr>
+                    </table>
+                    
+                    <h4 style="color: #323130; margin: 30px 0 20px 0; font-size: 1.4em;">Treasury Management Integration:</h4>
+                    
+                    <p>Positive Pay is part of Treasury Management services. Dynamics 365 needs to integrate with:</p>
+                    
+                    <ul style="margin: 20px 0 20px 40px; line-height: 2;">
+                        <li><strong>Treasury Workstation:</strong> The system businesses use to upload check files</li>
+                        <li><strong>ACH Origination:</strong> For electronic payment fraud prevention (ACH Positive Pay)</li>
+                        <li><strong>Payee Positive Pay:</strong> Matches payee name, not just check number (higher security)</li>
+                        <li><strong>Exception Processing:</strong> Workflow for when checks don't match (pay or return decision)</li>
+                    </ul>
+                    
+                    <div class="code-block">
+<span class="code-comment">// Positive Pay Offer Redemption Process</span>
+<span class="code-keyword">WHEN</span> BusinessCustomer.RedeemCode(<span class="code-string">"PP-3MO-FREE"</span>) <span class="code-keyword">DO</span>:
+    
+    <span class="code-comment">// Validate business qualifies</span>
+    <span class="code-keyword">IF</span> Account.Type = <span class="code-string">"Business Checking"</span> 
+       <span class="code-keyword">AND</span> Account.AverageBalance > $10000 <span class="code-keyword">THEN</span>
+        
+        <span class="code-comment">// Create Treasury Service record</span>
+        Service = <span class="code-keyword">NEW</span> TreasuryService()
+        Service.Type = <span class="code-string">"Positive Pay"</span>
+        Service.SetupFee = 0 <span class="code-comment">// Waived</span>
+        Service.MonthlyFee = 0 <span class="code-comment">// Promo period</span>
+        Service.PromoEndDate = TODAY() + 90 days
+        Service.FullMonthlyFee = $50
+        
+        <span class="code-comment">// Schedule fee transition</span>
+        ScheduleTask(<span class="code-string">"ActivateFullFee"</span>, Service.PromoEndDate)
+        
+        <span class="code-comment">// Notify treasury management team</span>
+        SendNotification(<span class="code-string">"Treasury Onboarding"</span>, Service)
+    <span class="code-keyword">END IF</span>
+<span class="code-keyword">END WHEN</span>
+                    </div>
+                </div>
+                
+                <!-- 3.4 MERCHANT SERVICES -->
+                <div class="detail-card">
+                    <h3><span class="number">D</span>Merchant Services Campaign Offer Codes</h3>
+                    
+                    <div class="info-box">
+                        <h4>Merchant Services Explained</h4>
+                        <p>When a business accepts credit cards (Visa, Mastercard), they need a <strong>merchant account</strong>. Your bank provides the account + card processing equipment. Offer codes might give free terminal, lower processing rates, or cash bonus for switching from another processor.</p>
+                    </div>
+                    
+                    <h4 style="color: #323130; margin: 30px 0 20px 0; font-size: 1.4em;">Merchant Services Offer Types:</h4>
+                    
+                    <table class="data-table">
+                        <tr>
+                            <th>Offer</th>
+                            <th>Code</th>
+                            <th>Value</th>
+                            <th>Conditions</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Free Terminal</strong></td>
+                            <td>MERCH-FREE-TERM</td>
+                            <td>$300 value</td>
+                            <td>Process $10K/month for 12 months</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Rate Match</strong></td>
+                            <td>MERCH-MATCH</td>
+                            <td>Beat current rate by 0.10%</td>
+                            <td>Provide current processor statement</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Switch Bonus</strong></td>
+                            <td>MERCH-SWITCH-500</td>
+                            <td>$500 cash</td>
+                            <td>Switch from competitor, process $20K first month</td>
+                        </tr>
+                        <tr>
+                            <td><strong>No Monthly Minimum</strong></td>
+                            <td>MERCH-NO-MIN</td>
+                            <td>$25/month waived</td>
+                            <td>First 6 months</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Next Day Funding</strong></td>
+                            <td>MERCH-ND-FUND</td>
+                            <td>Free upgrade</td>
+                            <td>Normally $10/month</td>
+                        </tr>
+                    </table>
+                    
+                    <div class="warning-box">
+                        <h4>Card Brand Compliance</h4>
+                        <p><strong>Visa/Mastercard Rules:</strong> Cannot offer cash incentives to switch exclusively (must be for new business too). Must disclose all fees (interchange + markup). Dynamics 365 must track that offers comply with card brand rules to avoid fines.</p>
+                    </div>
+                </div>
+                
+                <!-- 3.5 HSA -->
+                <div class="detail-card">
+                    <h3><span class="number">E</span>Health Savings Account (HSA) Campaign Offer Codes</h3>
+                    
+                    <div class="info-box">
+                        <h4>HSA Explained Simply</h4>
+                        <p>A <strong>Health Savings Account</strong> is a special bank account for people with high-deductible health insurance. Money goes in tax-free, grows tax-free, and comes out tax-free for medical expenses. Banks offer cash bonuses to open HSA accounts because they tend to have high balances and low turnover.</p>
+                    </div>
+                    
+                    <h4 style="color: #323130; margin: 30px 0 20px 0; font-size: 1.4em;">HSA Specific Offer Codes:</h4>
+                    
+                    <table class="data-table">
+                        <tr>
+                            <th>Offer</th>
+                            <th>Code</th>
+                            <th>Details</th>
+                            <th>IRS Compliance</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Opening Bonus</strong></td>
+                            <td>HSA-OPEN-100</td>
+                            <td>$100 after first payroll deposit</td>
+                            <td>Does not count toward annual contribution limit</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Balance Bonus</strong></td>
+                            <td>HSA-BAL-500</td>
+                            <td>$50 for every $1000 maintained (max $250)</td>
+                            <td>Must be reported on Form 1099-SA if distributed</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Investment Waiver</strong></td>
+                            <td>HSA-INV-FREE</td>
+                            <td>Waive $2.50/month investment fee</td>
+                            <td>Fee reduction is not a contribution</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Employer Bundle</strong></td>
+                            <td>HSA-EMP-BUNDLE</td>
+                            <td>Free for employer groups >100 employees</td>
+                            <td>Employer contributions tracked separately</td>
+                        </tr>
+                    </table>
+                    
+                    <h4 style="color: #323130; margin: 30px 0 20px 0; font-size: 1.4em;">HSA Eligibility Verification (Critical):</h4>
+                    
+                    <p>Before allowing HSA offer redemption, Dynamics 365 must verify:</p>
+                    
+                    <ol style="margin: 20px 0 20px 40px; line-height: 2;">
+                        <li><strong>High Deductible Health Plan (HDHP):</strong> Minimum deductible $1,650 individual / $3,300 family (2025 limits)</li>
+                        <li><strong>No Other Coverage:</strong> Not enrolled in Medicare, FSA, or other non-HDHP</li>
+                        <li><strong>Not Claimed Dependent:</strong> Cannot be claimed on someone else's tax return</li>
+                        <li><strong>Contribution Limit Check:</strong> Ensure opening bonus + customer contribution doesn't exceed $4,300 (individual) or $8,550 (family) for 2025</li>
+                    </ol>
+                    
+                    <div class="success-box">
+                        <h4>HSA + Investment Integration</h4>
+                        <p>Many HSAs allow investment once balance exceeds $1,000. Dynamics 365 should track:<br>
+                        • Cash balance (for debit card)<br>
+                        • Investment balance (mutual funds)<br>
+                        • Total balance for fee waiver qualification<br>
+                        • Investment risk tolerance (conservative/aggressive)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SECTION 4: PRE-APPROVED CREDIT CARDS -->
+            <div class="section" id="preapproved">
+                <div class="section-header">
+                    <div class="section-icon">💳</div>
+                    <div class="section-title">
+                        <h2>Pre-Approved Credit Cards</h2>
+                        <p>Reservation Numbers & Soft Pull Campaigns</p>
+                    </div>
+                </div>
+                
+                <div class="detail-card">
+                    <h3><span class="number">1</span>Pre-Approved Offer Mechanics</h3>
+                    
+                    <div class="info-box">
+                        <h4>What Does "Pre-Approved" Mean?</h4>
+                        <p>The bank already did a "soft pull" (doesn't affect credit score) and determined the customer likely qualifies. They send a letter/email saying "You're pre-approved for up to $10,000 credit limit!" with a <strong>reservation number</strong>. When customer applies with that number, they get the offer terms (if information hasn't changed).</p>
+                    </div>
+                    
+                    <h4 style="color: #323130; margin: 30px 0 20px 0; font-size: 1.4em;">Complete Pre-Approval Process:</h4>
+                    
+                    <div class="process-flow">
+                        <div class="process-step">
+                            <div class="step-number">1</div>
+                            <div class="step-title">Soft Pull</div>
+                            <div class="step-desc">Bank requests credit bureau data (Experian, Equifax, TransUnion) without hard inquiry</div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">2</div>
+                            <div class="step-title">Scoring Model</div>
+                            <div class="step-desc">Internal algorithm determines pre-approval likelihood and credit limit</div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">3</div>
+                            <div class="step-title">Offer Generation</div>
+                            <div class="step-desc">Dynamics 365 creates personalized offer with reservation number</div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">4</div>
+                            <div class="step-title">Customer Response</div>
+                            <div class="step-desc">Customer applies online/phone with reservation number</div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">5</div>
+                            <div class="step-title">Hard Pull & Verify</div>
+                            <div class="step-desc">Hard credit inquiry + income verification</div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">6</div>
+                            <div class="step-title">Final Decision</div>
+                            <div class="step-desc">Approve with pre-approved terms or counter-offer/deny</div>
+                        </div>
+                    </div>
+                    
+                    <h4 style="color: #323130; margin: 30px 0 20px 0; font-size: 1.4em;">Reservation Number Structure:</h4>
+                    
+                    <table class="data-table">
+                        <tr>
+                            <th>Component</th>
+                            <th>Format</th>
+                            <th>Example</th>
+                            <th>Purpose</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Campaign ID</strong></td>
+                            <td>3 chars</td>
+                            <td>PLT</td>
+                            <td>Platinum card campaign</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Month/Year</strong></td>
+                            <td>4 digits</td>
+                            <td>0225</td>
+                            <td>February 2025</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Unique ID</strong></td>
+                            <td>8 digits</td>
+                            <td>78432901</td>
+                            <td>Sequential unique identifier</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Checksum</strong></td>
+                            <td>2 digits</td>
+                            <td>45</td>
+                            <td>Fraud prevention (Luhn algorithm)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FULL CODE</strong></td>
+                            <td colspan="3" style="text-align: center; font-family: monospace; font-size: 1.2em; background: #f3f2f1;"><strong>PLT-0225-78432901-45</strong></td>
+                        </tr>
+                    </table>
+                    
+                    <h4 style="color: #323130; margin: 30px 0 20px 0; font-size: 1.4em;">Dynamics 365 Data Model for Pre-Approvals:</h4>
+                    
+                    <div class="code-block">
+<span class="code-comment">// Pre-Approval Offer Entity Schema</span>
+<span class="code-keyword">Entity:</span> PreApprovedOffer
+<span class="code-keyword">Fields:</span>
+    - OfferID (Primary Key, Autonumber)
+    - ReservationNumber (Unique, Indexed)
+    - ContactID (Lookup to Customer)
+    - CampaignID (Lookup to Marketing Campaign)
+    - ProductID (Lookup to Credit Card Product)
+    - PreApprovedLimit (Currency)
+    - PreApprovedAPR (Decimal)
+    - SoftPullDate (DateTime)
+    - CreditScoreRange (OptionSet: 300-579, 580-669, 670-739, 740-799, 800+)
+    - OfferExpirationDate (DateTime)
+    - ResponseStatus (OptionSet: Mailed, Opened, Clicked, Applied, Approved, Expired)
+    - HardPullFlag (Boolean)
+    - FinalDecision (OptionSet: Approved, CounterOffer, Declined, Pending)
+    - ActualApprovedLimit (Currency)
+    - ActualAPR (Decimal)
+    - ApplicationDate (DateTime)
+    - DecisionDate (DateTime)
+    - FulfillmentDate (DateTime)
+    - TrackingCookies (Text - for digital attribution)
+                    </div>
+                    
+                    <div class="warning-box">
+                        <h4>Fair Credit Reporting Act (FCRA) Requirements</h4>
+                        <p><strong>Adverse Action Notices:</strong> If pre-approved customer is denied, must provide specific reasons<br>
+                        <strong>Firm Offer of Credit:</strong> Pre-approval must be honored if customer meets stated criteria<br>
+                        <strong>Opt-Out:</strong> Must honor consumer requests to stop pre-screened offers<br>
+                        <strong>Record Retention:</strong> Keep soft pull data for 25 months (E-Oscar requirement)</p>
+                    </div>
+                </div>
+                
+                <div class="detail-card">
+                    <h3><span class="number">2</span>Pre-Approval Campaign Management</h3>
+                    
+                    <h4 style="color: #323130; margin: 30px 0 20px 0; font-size: 1.4em;">Campaign Types & Targeting:</h4>
+                    
+                    <table class="data-table">
+                        <tr>
+                            <th>Campaign Type</th>
+                            <th>Target Criteria</th>
+                            <th>Offer Terms</th>
+                            <th>Volume</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Credit Bureau Pre-Screen</strong></td>
+                            <td>FICO 720+, No recent inquiries, Income >$75K</td>
+                            <td>0% APR 15 months, $10K limit</td>
+                            <td>500K monthly</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Customer Cross-Sell</strong></td>
+                            <td>Existing checking customers, No credit card, 6+ months tenure</td>
+                            <td>No annual fee, 2% cash back</td>
+                            <td>50K monthly</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Win-Back</strong></td>
+                            <td>Former cardholders, Account closed 12+ months, Good standing</td>
+                            <td>50K bonus points, waived fee</td>
+                            <td>10K monthly</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Balance Transfer</strong></td>
+                            <td>High balances elsewhere, On-time payments, Utilization >50%</td>
+                            <td>0% BT 18 months, 3% fee</td>
+                            <td>100K monthly</td>
+                        </tr>
+                    </table>
+                    
+                    <h4 style="color: #323130; margin: 30px 0 20px 0; font-size: 1.4em;">Response Attribution Tracking:</h4>
+                    
+                    <p>Dynamics 365 must track which channel drove the application:</p>
+                    
+                    <ul style="margin: 20px 0 20px 40px; line-height: 2;">
+                        <li><strong>Direct Mail:</strong> Reservation number prefix + mail house tracking</li>
+                        <li><strong>Email:</strong> UTM parameters + unique landing page</li>
+                        <li><strong>Digital Ads:</strong> Cookie matching + reservation number lookup</li>
+                        <li><strong>Branch:</strong> Teller input of reservation number from letter</li>
+                        <li><strong>Phone:</strong> IVR collects reservation number before transfer</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- SECTION 5: TECHNICAL ARCHITECTURE -->
+            <div class="section" id="technical">
+                <div class="section-header">
+                    <div class="section-icon">⚙️</div>
+                    <div class="section-title">
+                        <h2>Technical Architecture</h2>
+                        <p>Data Model, Integrations & Security</p>
+                    </div>
+                </div>
+                
+                <div class="detail-card">
+                    <h3><span class="number">1</span>Complete Dataverse Schema for Banking Offers</h3>
+                    
+                    <h4 style="color: #323130; margin: 30px 0 20px 0; font-size: 1.4em;">Core Entities & Relationships:</h4>
+                    
+                    <div class="code-block">
+<span class="code-comment">/* OFFER CODE MASTER ENTITY */</span>
+<span class="code-keyword">Table:</span> bank_OfferCode
+<span class="code-keyword">Description:</span> Central repository for all offer codes across all products
+<span class="code-keyword">Columns:</span>
+    - bank_offercodeid (PK, GUID)
+    - bank_code (String, 50, Unique)
+    - bank_name (String, 100)
+    - bank_description (Text)
+    - bank_offertype (Choice: NewAccount, CreditCard, NONDDA, Treasury, Merchant, HSA, PreApproved)
+    - bank_productcategory (Lookup to bank_ProductCategory)
+    - bank_campaigntype (Choice: Referral, DirectMail, Digital, Branch, CallCenter)
+    - bank_startdate (DateOnly)
+    - bank_enddate (DateOnly)
+    - bank_status (Choice: Draft, Active, Paused, Expired, Cancelled)
+    - bank_redemptionlimit (Whole Number) <span class="code-comment">// Max total redemptions</span>
+    - bank_redemptioncount (Whole Number) <span class="code-comment">// Current count</span>
+    - bank_customerlimit (Whole Number) <span class="code-comment">// Max per customer</span>
+    - bank_rewardtype (Choice: Cash, Points, RateReduction, FeeWaiver, Product)
+    - bank_rewardvalue (Currency)
+    - bank_rewardcurrency (Currency)
+    - bank_conditions (Text) <span class="code-comment">// JSON of requirements</span>
+    - bank_targetaudience (Lookup to Marketing List)
+    - bank_costcenter (String, 20) <span class="code-comment">// For accounting</span>
+    - bank_complianceapproved (Boolean)
+    - bank_complianceapprover (Lookup to User)
+    - bank_regulatorynotes (Text)
+    - CreatedOn, ModifiedOn, OwnerId, etc. (Standard)
+
+<span class="code-comment">/* REDEMPTION TRACKING ENTITY */</span>
+<span class="code-keyword">Table:</span> bank_OfferRedemption
+<span class="code-keyword">Description:</span> Every time a code is used, record it here
+<span class="code-keyword">Columns:</span>
+    - bank_offerredemptionid (PK)
+    - bank_offercodeid (Lookup to bank_OfferCode)
+    - bank_customerid (Lookup to Contact)
+    - bank_redemptiondate (DateTime)
+    - bank_channel (Choice: Online, Mobile, Branch, Phone, Mail)
+    - bank_applicationid (Lookup to bank_Application)
+    - bank_accountid (Lookup to bank_Account) <span class="code-comment">// Opened account</span>
+    - bank_status (Choice: Pending, Qualified, Paid, Reversed, Expired)
+    - bank_qualificationdate (DateTime)
+    - bank_paymentdate (DateTime)
+    - bank_paymentmethod (Choice: DirectDeposit, StatementCredit, Check, Points)
+    - bank_paymentreference (String) <span class="code-comment">// Check number, ACH trace</span>
+    - bank_taxreportingrequired (Boolean)
+    - bank_1099issued (Boolean)
+    - bank_1099date (DateOnly)
+    - bank_reversalreason (Choice: Fraud, EarlyClosure, Error, Compliance)
+
+<span class="code-comment">/* REFERRAL PROGRAM ENTITY */</span>
+<span class="code-keyword">Table:</span> bank_ReferralProgram
+<span class="code-keyword">Columns:</span>
+    - bank_referralprogramid (PK)
+    - bank_referrerid (Lookup to Contact)
+    - bank_refereeid (Lookup to Contact)
+    - bank_referralcode (String, 20, Unique)
+    - bank_generationdate (DateTime)
+    - bank_expirydate (DateTime)
+    - bank_status (Choice: Generated, Shared, Converted, Expired)
+    - bank_referrerreward (Currency)
+    - bank_refereereward (Currency)
+    - bank_referrerpaid (Boolean)
+    - bank_refereepaid (Boolean)
+
+<span class="code-comment">/* PRE-APPROVAL ENTITY */</span>
+<span class="code-keyword">Table:</span> bank_PreApproval
+<span class="code-keyword">Columns:</span>
+    - bank_preapprovalid (PK)
+    - bank_reservationnumber (String, 25, Unique)
+    - bank_contactid (Lookup to Contact)
+    - bank_softpullbureau (Choice: Experian, Equifax, TransUnion)
+    - bank_softpulldate (DateTime)
+    - bank_ficoscore (Whole Number)
+    - bank_ficorange (String, 10)
+    - bank_prescreenstatus (Choice: PreApproved, PreQualified, Declined)
+    - bank_offeredproduct (Lookup to Product)
+    - bank_offeredlimit (Currency)
+    - bank_offeredapr (Decimal)
+    - bank_offerexpiration (DateOnly)
+    - bank_maileddate (DateOnly)
+    - bank_responsedate (DateTime)
+    - bank_applicationid (Lookup to bank_Application)
+    - bank_hardpulled (Boolean)
+    - bank_hardpulldate (DateTime)
+    - bank_finaldecision (Choice: Approved, CounterOffer, Declined, Expired)
+    - bank_approvedlimit (Currency)
+    - bank_approvedapr (Decimal)
+                    </div>
+                </div>
+                
+                <div class="detail-card">
+                    <h3><span class="number">2</span>Integration Architecture</h3>
+                    
+                    <h4 style="color: #323130; margin: 30px 0 20px 0; font-size: 1.4em;">System Integration Map:</h4>
+                    
+                    <table class="data-table">
+                        <tr>
+                            <th>System</th>
+                            <th>Integration Type</th>
+                            <th>Data Flow</th>
+                            <th>Frequency</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Core Banking (FIS, Fiserv, Jack Henry)</strong></td>
+                            <td>Real-time API + Batch</td>
+                            <td>Account opening, Balance verification, Transaction history</td>
+                            <td>Real-time + Daily</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Loan Origination (LOS)</strong></td>
+                            <td>Real-time API</td>
+                            <td>Credit card applications, Decision results</td>
+                            <td>Real-time</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Credit Bureau</strong></td>
+                            <td>API (Experian Connect, Equifax)</td>
+                            <td>Soft pulls, Hard pulls, Score monitoring</td>
+                            <td>On-demand</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Card Processor</strong></td>
+                            <td>Batch File (SFTP)</td>
+                            <td>Transaction data, Bonus qualification</td>
+                            <td>Daily</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Merchant Services</strong></td>
+                            <td>API + Portal</td>
+                            <td>Application status, Processing volume</td>
+                            <td>Hourly</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Treasury Workstation</strong></td>
+                            <td>API</td>
+                            <td>Positive Pay enrollment, Fee billing</td>
+                            <td>Real-time</td>
+                        </tr>
+                        <tr>
+                            <td><strong>HSA Administrator</strong></td>
+                            <td>API</td>
+                            <td>Contribution limits, Investment balances</td>
+                            <td>Daily</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tax Reporting (1099)</strong></td>
+                            <td>Batch Export</td>
+                            <td>Reward payments >$600</td>
+                            <td>Annual</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Email Service (SendGrid, Mailchimp)</strong></td>
+                            <td>API</td>
+                            <td>Offer delivery, Click tracking</td>
+                            <td>Real-time</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Print Vendor (TCS, Deluxe)</strong></td>
+                            <td>SFTP + API</td>
+                            <td>Mail files, Response tracking</td>
+                            <td>Daily</td>
+                        </tr>
+                    </table>
+                    
+                    <h4 style="color: #323130; margin: 30px 0 20px 0; font-size: 1.4em;">Power Automate Flows Required:</h4>
+                    
+                    <ol style="margin: 20px 0 20px 40px; line-height: 2;">
+                        <li><strong>Code Validation Flow:</strong> Triggered when code entered → Check validity → Return result to channel</li>
+                        <li><strong>Reward Qualification Flow:</strong> Daily check of account status → Mark qualified → Trigger payment</li>
+                        <li><strong>Expiration Management:</strong> Daily scan of expiring codes → Send reminders → Auto-expire</li>
+                        <li><strong>Tax Reporting Flow:</strong> Annual aggregation of rewards >$600 → Generate 1099 data → Export to tax system</li>
+                        <li><strong>Fraud Detection Flow:</strong> Real-time pattern analysis → Flag suspicious redemptions → Alert compliance</li>
+                        <li><strong>Reconciliation Flow:</strong> Daily match between D365 redemptions and core banking payments</li>
+                    </ol>
+                </div>
+                
+                <div class="detail-card">
+                    <h3><span class="number">3</span>Security & Access Control</h3>
+                    
+                    <h4 style="color: #323130; margin: 30px 0 20px 0; font-size: 1.4em;">Security Roles for Banking Offers:</h4>
+                    
+                    <table class="data-table">
+                        <tr>
+                            <th>Role</th>
+                            <th>Permissions</th>
+                            <th>Data Access</th>
+                            <th>Special Restrictions</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Banking Admin</strong></td>
+                            <td>Full CRUD on all offer entities</td>
+                            <td>All offers, All customer data</td>
+                            <td>Two-factor auth required</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Marketing Manager</strong></td>
+                            <td>Create/Edit offers, View redemptions</td>
+                            <td>Own campaigns, Aggregate data only</td>
+                            <td>Cannot view full SSN/TIN</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Compliance Officer</strong></td>
+                            <td>Read all, Approve offers, Audit logs</td>
+                            <td>All data (read-only)</td>
+                            <td>Cannot modify offers</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Branch Teller</strong></td>
+                            <td>View offer, Validate code, Process redemption</td>
+                            <td>Branch customers only</td>
+                            <td>Masked PII, Session timeout 15 min</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Call Center Rep</strong></td>
+                            <td>View offer, Validate code, Process redemption</td>
+                            <td>Assigned customers</td>
+                            <td>Recording required, No export</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Customer (Portal)</strong></td>
+                            <td>View own offers, Generate referral code</td>
+                            <td>Own data only</td>
+                            <td>OAuth 2.0, Device registration</td>
+                        </tr>
+                    </table>
+                    
+                    <div class="warning-box">
+                        <h4>Gramm-Leach-Bliley Act (GLBA) Compliance</h4>
+                        <p>All offer code data containing NPI (Nonpublic Personal Information) must be:<br>
+                        • Encrypted at rest (AES-256)<br>
+                        • Encrypted in transit (TLS 1.2+)<br>
+                        • Access logged with user ID, timestamp, action<br>
+                        • Annual privacy notice provided to customers<br>
+                        • Opt-out honored for marketing offers</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SECTION 6: COMPLIANCE -->
+            <div class="section" id="compliance">
+                <div class="section-header">
+                    <div class="section-icon">📜</div>
+                    <div class="section-title">
+                        <h2>Regulatory Compliance</h2>
+                        <p>Banking Regulations & Risk Management</p>
+                    </div>
+                </div>
+                
+                <div class="detail-card">
+                    <h3><span class="number">1</span>Complete Regulatory Checklist</h3>
+                    
+                    <table class="data-table">
+                        <tr>
+                            <th>Regulation</th>
+                            <th>Applies To</th>
+                            <th>Requirement</th>
+                            <th>D365 Implementation</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Truth in Savings (Reg DD)</strong></td>
+                            <td>DDA, Savings, CDs, MM</td>
+                            <td>Disclose APY, Fees, Minimum balance</td>
+                            <td>Offer terms stored in entity, Disclosure PDF auto-generated</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Truth in Lending (Reg Z)</strong></td>
+                            <td>Credit Cards, Loans</td>
+                            <td>Disclose APR, Fees, Grace period</td>
+                            <td>Schumer Box generation, APR validation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>UDAAP</strong></td>
+                            <td>All offers</td>
+                            <td>No deceptive claims, Clear conditions</td>
+                            <td>Compliance workflow approval required</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FCRA</strong></td>
+                            <td>Pre-approved offers</td>
+                            <td>Opt-out honor, Adverse action notices</td>
+                            <td>Opt-out list integration, Auto-generated notices</td>
+                        </tr>
+                        <tr>
+                            <td><strong>GLBA</strong></td>
+                            <td>All customer data</td>
+                            <td>Privacy, Security, Access controls</td>
+                            <td>Role-based security, Encryption, Audit logs</td>
+                        </tr>
+                        <tr>
+                            <td><strong>BSA/AML</strong></td>
+                            <td>All offers with cash</td>
+                            <td>Monitor for structuring, Report suspicious</td>
+                            <td>Transaction monitoring integration, SAR filing workflow</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IRS Reporting</strong></td>
+                            <td>Rewards >$600</td>
+                            <td>1099-INT or 1099-MISC</td>
+                            <td>Annual aggregation, E-filing integration</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CAN-SPAM</strong></td>
+                            <td>Email campaigns</td>
+                            <td>Unsubscribe, Physical address</td>
+                            <td>Auto-unsubscribe, Template validation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Telemarketing (TCPA)</strong></td>
+                            <td>Phone campaigns</td>
+                            <td>Consent required, Do Not Call</td>
+                            <td>Consent tracking, DNC list scrubbing</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FINRA (Investments)</strong></td>
+                            <td>IRA, Brokerage</td>
+                            <td>Suitability, Risk disclosure</td>
+                            <td>Questionnaire workflow, Documentation retention</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="detail-card">
+                    <h3><span class="number">2</span>Risk Management & Fraud Prevention</h3>
+                    
+                    <h4 style="color: #323130; margin: 30px 0 20px 0; font-size: 1.4em;">Fraud Scenarios & Mitigation:</h4>
+                    
+                    <table class="data-table">
+                        <tr>
+                            <th>Fraud Type</th>
+                            <th>Description</th>
+                            <th>Detection Method</th>
+                            <th>Prevention</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Code Guessing</strong></td>
+                            <td>Bot tries random codes to find valid ones</td>
+                            <td>Rate limiting, Pattern analysis</td>
+                            <td>Max 3 attempts per IP, CAPTCHA after failure</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Self-Referral</strong></td>
+                            <td>Customer refers themselves using different email</td>
+                            <td>Device fingerprinting, Address matching</td>
+                            <td>Block same IP/device, Flag matching addresses</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Synthetic Identity</strong></td>
+                            <td>Fake customer opens account just for bonus</td>
+                            <td>ChexSystems verification, Document verification</td>
+                            <td>Identity proofing required, 30-day hold on bonus</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Account Flipping</strong></td>
+                            <td>Open account, get bonus, close immediately</td>
+                            <td>Account tenure tracking, Clawback logic</td>
+                            <td>Minimum 90-day retention requirement</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Code Sharing Sites</strong></td>
+                            <td>Referral codes posted publicly (RetailMeNot, etc.)</td>
+                            <td>Web scraping detection, Usage pattern analysis</td>
+                            <td>Limit usage per code, Monitor velocity</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Employee Collusion</strong></td>
+                            <td>Staff creates fake accounts for bonuses</td>
+                            <td>Employee account monitoring, Supervisor approval</td>
+                            <td>Exclude employee accounts, Dual control</td>
+                        </tr>
+                    </table>
+                    
+                    <div class="success-box">
+                        <h4>Clawback Mechanism</h4>
+                        <p>Dynamics 365 must support reversing rewards if fraud detected or conditions not met:<br>
+                        • <strong>Automatic:</strong> If account closed < 90 days, auto-debit reward from final balance<br>
+                        • <strong>Manual:</strong> Compliance officer can initiate clawback for fraud<br>
+                        • <strong>1099 Correction:</strong> If clawback in same tax year, adjust 1099. If next year, customer reports recovery.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SECTION 7: IMPLEMENTATION -->
+            <div class="section" id="implementation">
+                <div class="section-header">
+                    <div class="section-icon">🚀</div>
+                    <div class="section-title">
+                        <h2>Implementation Roadmap</h2>
+                        <p>Phased Deployment Strategy</p>
+                    </div>
+                </div>
+                
+                <div class="detail-card">
+                    <h3><span class="number">1</span>Phase 1: Foundation (Weeks 1-4)</h3>
+                    
+                    <ul class="checklist">
+                        <li>Install Dynamics 365 Sales + Marketing apps</li>
+                        <li>Configure Dataverse with custom banking entities</li>
+                        <li>Set up security roles and field-level security</li>
+                        <li>Integrate with core banking system (read-only)</li>
+                        <li>Import existing customer data (masked for testing)</li>
+                        <li>Configure duplicate detection rules</li>
+                        <li>Set up audit logging</li>
+                        <li>Create compliance approval workflows</li>
+                    </ul>
+                </div>
+                
+                <div class="detail-card">
+                    <h3><span class="number">2</span>Phase 2: New Account Offers (Weeks 5-8)</h3>
+                    
+                    <ul class="checklist">
+                        <li>Build Refer-a-Friend portal (Power Apps)</li>
+                        <li>Implement unique code generation logic</li>
+                        <li>Create referral tracking dashboard</li>
+                        <li>Integrate with core banking for account validation</li>
+                        <li>Build reward qualification engine</li>
+                        <li>Set up direct mail integration (SFTP)</li>
+                        <li>Create mailing code batch generation</li>
+                        <li>Implement print vendor data export</li>
+                        <li>Configure response attribution tracking</li>
+                    </ul>
+                </div>
+                
+                <div class="detail-card">
+                    <h3><span class="number">3</span>Phase 3: Campaign Offers (Weeks 9-14)</h3>
+                    
+                    <ul class="checklist">
+                        <li>Configure product catalog (Credit Cards, HSA, Treasury)</li>
+                        <li>Build credit card offer management</li>
+                        <li>Integrate with LOS (Loan Origination System)</li>
+                        <li>Implement bonus tracking for credit cards</li>
+                        <li>Build NON-DDA offer workflows</li>
+                        <li>Configure investment product suitability</li>
+                        <li>Implement Positive Pay enrollment</li>
+                        <li>Build merchant services application flow</li>
+                        <li>Create HSA eligibility verification</li>
+                        <li>Set up contribution limit tracking</li>
+                    </ul>
+                </div>
+                
+                <div class="detail-card">
+                    <h3><span class="number">4</span>Phase 4: Pre-Approval (Weeks 15-18)</h3>
+                    
+                    <ul class="checklist">
+                        <li>Integrate with credit bureaus (soft pull)</li>
+                        <li>Build pre-screen scoring model</li>
+                        <li>Create reservation number generation</li>
+                        <li>Implement offer expiration management</li>
+                        <li>Build response tracking (mail, email, digital)</li>
+                        <li>Create adverse action notice generation</li>
+                        <li>Set up opt-out management</li>
+                        <li>Implement hard pull integration</li>
+                    </ul>
+                </div>
+                
+                <div class="detail-card">
+                    <h3><span class="number">5</span>Phase 5: Reporting & Optimization (Weeks 19-20)</h3>
+                    
+                    <ul class="checklist">
+                        <li>Build Power BI dashboards for campaign ROI</li>
+                        <li>Create regulatory reporting (CRA, HMDA)</li>
+                        <li>Implement fraud monitoring alerts</li>
+                        <li>Set up automated reconciliation</li>
+                        <li>Create customer service views</li>
+                        <li>Build executive summary reports</li>
+                        <li>Perform UAT with business users</li>
+                        <li>Conduct compliance audit</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- SECTION 8: OPERATIONS -->
+            <div class="section" id="operations">
+                <div class="section-header">
+                    <div class="section-icon">🔧</div>
+                    <div class="section-title">
+                        <h2>Operational Procedures</h2>
+                        <p>Daily Operations & Troubleshooting</p>
+                    </div>
+                </div>
+                
+                <div class="detail-card">
+                    <h3><span class="number">1</span>Daily Operational Checklist</h3>
+                    
+                    <table class="data-table">
+                        <tr>
+                            <th>Time</th>
+                            <th>Task</th>
+                            <th>System/Tool</th>
+                            <th>Owner</th>
+                        </tr>
+                        <tr>
+                            <td>6:00 AM</td>
+                            <td>Review failed code validations overnight</td>
+                            <td>D365 Views + Power Automate</td>
+                            <td>Operations</td>
+                        </tr>
+                        <tr>
+                            <td>7:00 AM</td>
+                            <td>Process batch mail file for print vendor</td>
+                            <td>Power Automate + SFTP</td>
+                            <td>Marketing</td>
+                        </tr>
+                        <tr>
+                            <td>8:00 AM</td>
+                            <td>Review pending reward qualifications</td>
+                            <td>D365 Dashboard</td>
+                            <td>Finance</td>
+                        </tr>
+                        <tr>
+                            <td>9:00 AM</td>
+                            <td>Check fraud alerts</td>
+                            <td>Power BI Alert</td>
+                            <td>Compliance</td>
+                        </tr>
+                        <tr>
+                            <td>10:00 AM</td>
+                            <td>Reconcile yesterday's redemptions with core banking</td>
+                            <td>Power Automate + Excel</td>
+                            <td>Operations</td>
+                        </tr>
+                        <tr>
+                            <td>2:00 PM</td>
+                            <td>Review expiring offers (30-day notice)</td>
+                            <td>D365 View</td>
+                            <td>Marketing</td>
+                        </tr>
+                        <tr>
+                            <td>4:00 PM</td>
+                            <td>Process reward payments (ACH file generation)</td>
+                            <td>Power Automate + Core Banking</td>
+                            <td>Finance</td>
+                        </tr>
+                        <tr>
+                            <td>5:00 PM</td>
+                            <td>Generate daily redemption report</td>
+                            <td>Power BI</td>
+                            <td>Management</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="detail-card">
+                    <h3><span class="number">2</span>Common Issues & Resolution</h3>
+                    
+                    <table class="data-table">
+                        <tr>
+                            <th>Issue</th>
+                            <th>Symptom</th>
+                            <th>Root Cause</th>
+                            <th>Resolution</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Code Not Valid</strong></td>
+                            <td>Customer says code doesn't work</td>
+                            <td>Expired, Max usage reached, or typo</td>
+                            <td>Check redemption history in D365, extend if appropriate</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Duplicate Payment</strong></td>
+                            <td>Customer paid twice</td>
+                            <td>System glitch or manual error</td>
+                            <td>Reverse second payment in core banking, update D365 status</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Missing Attribution</strong></td>
+                            <td>Don't know which campaign drove app</td>
+                            <td>Code not captured at application</td>
+                            <td>Manual lookup by date/name, update referral record</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tax Reporting Error</strong></td>
+                            <td>1099 issued for wrong amount</td>
+                            <td>Clawback not reflected</td>
+                            <td>Issue corrected 1099, document in D365</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fraudulent Redemption</strong></td>
+                            <td>Suspicious pattern detected</td>
+                            <td>Synthetic identity or account flipping</td>
+                            <td>Freeze reward, investigate, potentially clawback</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="detail-card">
+                    <h3><span class="number">3</span>Key Performance Indicators (KPIs)</h3>
+                    
+                    <div class="two-col">
+                        <div class="col-box">
+                            <h4>Marketing Metrics</h4>
+                            <ul style="list-style: none; line-height: 2;">
+                                <li>📧 <strong>Redemption Rate:</strong> # Redeemed / # Issued (Target: 2-5%)</li>
+                                <li>💰 <strong>Cost Per Acquisition:</strong> Total Cost / New Accounts (Target: <$150)</li>
+                                <li>🏦 <strong>Account Quality:</strong> Avg balance after 6 months</li>
+                                <li>🔄 <strong>Retention Rate:</strong> % Accounts open after 1 year</li>
+                                <li>⭐ <strong>Net Promoter Score:</strong> Customer satisfaction</li>
+                            </ul>
+                        </div>
+                        <div class="col-box">
+                            <h4>Operational Metrics</h4>
+                            <ul style="list-style: none; line-height: 2;">
+                                <li>⚡ <strong>System Uptime:</strong> 99.9% availability</li>
+                                <li>🎯 <strong>Code Validation Time:</strong> < 2 seconds</li>
+                                <li>💸 <strong>Reward Payment Time:</strong> Within 5 business days of qualification</li>
+                                <li>🛡️ <strong>Fraud Detection Rate:</strong> % Fraud caught before payment</li>
+                                <li>📊 <strong>Data Accuracy:</strong> 99.5% reconciliation match</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FINAL SUMMARY -->
+            <div class="section">
+                <div class="detail-card" style="background: linear-gradient(135deg, #0078d4 0%, #005a9e 100%); color: white;">
+                    <h3 style="color: white; border-bottom-color: rgba(255,255,255,0.3);">Summary: What You Get with This Implementation</h3>
+                    
+                    <div class="two-col" style="margin-top: 30px;">
+                        <div style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 12px;">
+                            <h4 style="color: white; margin-bottom: 20px;">✅ Out-of-the-Box (OOTB)</h4>
+                            <ul style="list-style: none; line-height: 2; color: rgba(255,255,255,0.9);">
+                                <li>• Customer database (Dataverse)</li>
+                                <li>• Marketing campaign management</li>
+                                <li>• Email automation</li>
+                                <li>• Basic reporting</li>
+                                <li>• Security framework</li>
+                                <li>• Mobile app platform</li>
+                            </ul>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 12px;">
+                            <h4 style="color: white; margin-bottom: 20px;">🔧 Custom Development Required</h4>
+                            <ul style="list-style: none; line-height: 2; color: rgba(255,255,255,0.9);">
+                                <li>• Core banking integration</li>
+                                <li>• Credit bureau connections</li>
+                                <li>• Unique code generation logic</li>
+                                <li>• Reward qualification engine</li>
+                                <li>• Tax reporting integration</li>
+                                <li>• Fraud detection algorithms</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 30px; padding: 25px; background: rgba(255,255,255,0.15); border-radius: 12px; text-align: center;">
+                        <p style="font-size: 1.2em; margin-bottom: 15px;"><strong>Total Implementation Time:</strong> 20 weeks (5 months)</p>
+                        <p style="font-size: 1.1em; opacity: 0.9;"><strong>Team Required:</strong> 1 Solution Architect, 2 D365 Developers, 1 Integration Specialist, 1 Compliance Consultant, 1 Project Manager</p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- FOOTER -->
+        <div class="document-footer">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Document Information</h4>
+                    <ul>
+                        <li>Version: 1.0</li>
+                        <li>Date: February 2025</li>
+                        <li>Status: Final</li>
+                        <li>Classification: Confidential</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Modules Covered</h4>
+                    <ul>
+                        <li>Dynamics 365 Sales</li>
+                        <li>Dynamics 365 Marketing</li>
+                        <li>Power Platform</li>
+                        <li>Dataverse</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Products Covered</h4>
+                    <ul>
+                        <li>DDA, Savings, CDs, MM</li>
+                        <li>Credit Cards</li>
+                        <li>HSA, IRA, Investments</li>
+                        <li>Treasury, Merchant Services</li>
+                    </ul>
+                </div>
+            </div>
+            <p style="margin-top: 40px; opacity: 0.8; font-size: 0.9em;">
+                This document provides a comprehensive guide to implementing offer code functionality in Dynamics 365 for banking.<br>
+                All regulatory requirements mentioned are current as of February 2025. Consult compliance for latest regulations.
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+            // Update active nav
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
