@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamics 365 OOTB Features: Banking Offer Codes Complete Reference</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #323130;
+            background: #f3f2f1;
+            padding: 20px;
+        }
+        
+        .master-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        
+        /* Header */
+        .ootb-header {
+            background: linear-gradient(135deg, #0078d4 0%, #005a9e 50%, #003d6b 100%);
+            color: white;
+            padding: 60px;
+            position: relative;
+        }
+        
+        .ootb-header h1 {
+            font-size: 3em;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .ootb-header .subtitle {
+            font-size: 1.4em;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+        
+        .ootb-badge {
+            display: inline-block;
+            background: #107c10;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            margin-top: 25px;
+            font-weight: 700;
+            font-size: 1.1em;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        /* Legend */
+        .legend-bar {
+            background: #fff4ce;
+            padding: 20px 60px;
+            border-bottom: 2px solid #ffc107;
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+        
+        .badge-ootb { 
+            background: #107c10; 
+            color: white; 
+            padding: 5px 15px; 
+            border-radius: 20px; 
+            font-size: 0.85em;
+        }
+        
+        .badge-config { 
+            background: #ffc107; 
+            color: #8a6d00; 
+            padding: 5px 15px; 
+            border-radius: 20px; 
+            font-size: 0.85em;
+        }
+        
+        .badge-extension { 
+            background: #d83b01; 
+            color: white; 
+            padding: 5px 15px; 
+            border-radius: 20px; 
+            font-size: 0.85em;
+        }
+        
+        /* Content */
+        .content-wrapper {
+            padding: 60px;
+        }
+        
+        .section {
+            margin-bottom: 60px;
+            page-break-inside: avoid;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid #0078d4;
+        }
+        
+        .section-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #0078d4, #005a9e);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-right: 25px;
+            color: white;
+        }
+        
+        .section-title h2 {
+            font-size: 2.4em;
+            color: #323130;
+            margin-bottom: 8px;
+        }
+        
+        .section-title p {
+            color: #605e5c;
+            font-size: 1.2em;
+        }
+        
+        /* Feature Cards */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .feature-card {
+            background: white;
+            border: 2px solid #e1dfdd;
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border-color: #0078d4;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: #107c10;
+        }
+        
+        .feature-card.config::before { background: #ffc107; }
+        .feature-card.extension::before { background: #d83b01; }
+        
+        .feature-card h3 {
+            color: #0078d4;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .feature-card ul {
+            list-style: none;
+            margin-top: 15px;
+        }
+        
+        .feature-card li {
+            padding: 10px 0 10px 30px;
+            position: relative;
+            border-bottom: 1px solid #f0f0f0;
+            color: #605e5c;
+        }
+        
+        .feature-card li:last-child {
+            border-bottom: none;
+        }
+        
+        .feature-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #107c10;
+            font-weight: bold;
+        }
+        
+        .feature-card.config li::before { content: '⚙'; color: #ffc107; }
+        .feature-card.extension li::before { content: '×'; color: #d83b01; }
+        
+        /* Tables */
+        .ootb-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 25px 0;
+            font-size: 0.95em;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .ootb-table th {
+            background: #0078d4;
+            color: white;
+            padding: 18px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .ootb-table td {
+            padding: 18px;
+            border-bottom: 1px solid #e1dfdd;
+            background: white;
+            vertical-align: top;
+        }
+        
+        .ootb-table tr:hover td {
+            background: #f9f9f9;
+        }
+        
+        .ootb-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        /* Status indicators in tables */
+        .cell-ootb { 
+            background: #dff6dd; 
+            color: #107c10; 
+            padding: 5px 12px; 
+            border-radius: 15px; 
+            font-weight: 600;
+            font-size: 0.85em;
+        }
+        
+        .cell-config { 
+            background: #fff4ce; 
+            color: #8a6d00; 
+            padding: 5px 12px; 
+            border-radius: 15px; 
+            font-weight: 600;
+            font-size: 0.85em;
+        }
+        
+        .cell-extension { 
+            background: #fde7e9; 
+            color: #a80000; 
+            padding: 5px 12px; 
+            border-radius: 15px; 
+            font-weight: 600;
+            font-size: 0.85em;
+        }
+        
+        /* Info boxes */
+        .info-box {
+            background: #f3f2f1;
+            border-left: 6px solid #0078d4;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 0 12px 12px 0;
+        }
+        
+        .info-box h4 {
+            color: #0078d4;
+            margin-bottom: 12px;
+            font-size: 1.2em;
+        }
+        
+        .warning-box {
+            background: #fff4ce;
+            border-left-color: #ffc107;
+        }
+        
+        .warning-box h4 { color: #8a6d00; }
+        
+        .ootb-box {
+            background: #dff6dd;
+            border-left-color: #107c10;
+        }
+        
+        .ootb-box h4 { color: #107c10; }
+        
+        /* Comparison matrix */
+        .matrix-table th {
+            background: #323130;
+            color: white;
+        }
+        
+        .matrix-table td:first-child {
+            font-weight: 600;
+            background: #f9f9f9;
+        }
+        
+        .check { color: #107c10; font-size: 1.3em; }
+        .partial { color: #ffc107; font-size: 1.3em; }
+        .cross { color: #d83b01; font-size: 1.3em; }
+        
+        /* Process flow */
+        .process-flow {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 0;
+            padding: 30px;
+            background: #f3f2f1;
+            border-radius: 12px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .process-step {
+            flex: 1;
+            min-width: 200px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            position: relative;
+        }
+        
+        .process-step::after {
+            content: '→';
+            position: absolute;
+            right: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.8em;
+            color: #0078d4;
+        }
+        
+        .process-step:last-child::after {
+            content: none;
+        }
+        
+        .step-title {
+            font-weight: 700;
+            color: #323130;
+            margin-bottom: 8px;
+        }
+        
+        .step-ootb {
+            display: inline-block;
+            background: #dff6dd;
+            color: #107c10;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            margin-top: 8px;
+        }
+        
+        .step-config {
+            display: inline-block;
+            background: #fff4ce;
+            color: #8a6d00;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            margin-top: 8px;
+        }
+        
+        /* Detailed specs */
+        .spec-block {
+            background: #f9f9f9;
+            border: 2px solid #e1dfdd;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        
+        .spec-block h4 {
+            color: #0078d4;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e1dfdd;
+        }
+        
+        .spec-item:last-child {
+            border-bottom: none;
+        }
+        
+        .spec-label {
+            font-weight: 600;
+            color: #323130;
+        }
+        
+        .spec-value {
+            color: #605e5c;
+        }
+        
+        /* Limitations box */
+        .limitation-box {
+            background: #fde7e9;
+            border: 2px solid #d83b01;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .limitation-box h4 {
+            color: #a80000;
+            margin-bottom: 15px;
+        }
+        
+        /* Summary cards */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .summary-card {
+            background: white;
+            border: 2px solid #e1dfdd;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .summary-number {
+            font-size: 3em;
+            font-weight: 700;
+            color: #0078d4;
+            margin-bottom: 10px;
+        }
+        
+        .summary-label {
+            color: #605e5c;
+            font-weight: 600;
+        }
+        
+        /* Footer */
+        .document-footer {
+            background: #323130;
+            color: white;
+            padding: 40px 60px;
+            text-align: center;
+        }
+        
+        @media print {
+            body { background: white; }
+            .master-container { box-shadow: none; }
+            .section { break-inside: avoid; }
+            .feature-card { break-inside: avoid; }
+        }
+        
+        @media (max-width: 768px) {
+            .content-wrapper { padding: 30px; }
+            .legend-bar { padding: 20px; }
+            .ootb-header { padding: 40px 30px; }
+            .ootb-header h1 { font-size: 2em; }
+            .summary-grid { grid-template-columns: 1fr; }
+            .process-step::after { content: '↓'; right: 50%; top: 100%; transform: translateX(50%); }
+        }
+    </style>
+</head>
+<body>
+    <div class="master-container">
+        <!-- HEADER -->
+        <div class="ootb-header">
+            <h1>Dynamics 365 OOTB Features</h1>
+            <div class="subtitle">Complete Out-of-the-Box Capability Guide for Banking Offer Codes<br>No Custom Code Required - Configuration Only</div>
+            <div class="ootb-badge">✓ 100% MICROSOFT STANDARD FEATURES</div>
+        </div>
+        
+        <!-- LEGEND -->
+        <div class="legend-bar">
+            <div class="legend-item">
+                <span class="badge-ootb">OOTB</span>
+                <span>Works immediately after configuration</span>
+            </div>
+            <div class="legend-item">
+                <span class="badge-config">CONFIG</span>
+                <span>Requires setup (workflows, fields, forms)</span>
+            </div>
+            <div class="legend-item">
+                <span class="badge-extension">EXTEND</span>
+                <span>Needs custom code or third-party solution</span>
+            </div>
+        </div>
+        
+        <div class="content-wrapper">
+            
+            <!-- SECTION 1: WHAT IS OOTB -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">📦</div>
+                    <div class="section-title">
+                        <h2>Understanding OOTB vs. Custom</h2>
+                        <p>What Microsoft Provides vs. What You Build</p>
+                    </div>
+                </div>
+                
+                <div class="info-box ootb-box">
+                    <h4>What "Out-of-the-Box" Means</h4>
+                    <p><strong>OOTB (Out-of-the-Box)</strong> features are capabilities that exist in Dynamics 365 immediately after installation, requiring only configuration (turning on, setting up, connecting) but NO programming, NO custom code, NO API development, and NO third-party tools. If you can do it through the Settings menu, it's OOTB.</p>
+                </div>
+                
+                <table class="ootb-table">
+                    <tr>
+                        <th>Capability</th>
+                        <th>OOTB in D365?</th>
+                        <th>What You Get</th>
+                        <th>What's Missing for Banking</th>
+                    </tr>
+                    <tr>
+                        <td>Customer Database</td>
+                        <td><span class="cell-ootb">YES - OOTB</span></td>
+                        <td>Contact, Account entities with 100+ standard fields</td>
+                        <td>SSN field (add custom), Account numbers (add custom)</td>
+                    </tr>
+                    <tr>
+                        <td>Marketing Lists</td>
+                        <td><span class="cell-ootb">YES - OOTB</span></td>
+                        <td>Static and dynamic segments, subscription centers</td>
+                        <td>Credit bureau data integration (requires extension)</td>
+                    </tr>
+                    <tr>
+                        <td>Campaign Management</td>
+                        <td><span class="cell-ootb">YES - OOTB</span></td>
+                        <td>Campaigns, activities, responses, cost tracking</td>
+                        <td>Automated offer code generation (requires config)</td>
+                    </tr>
+                    <tr>
+                        <td>Email Marketing</td>
+                        <td><span class="cell-ootb">YES - OOTB</span></td>
+                        <td>Customer Insights - Journeys, templates, A/B testing</td>
+                        <td>Pre-approved offer logic (requires extension)</td>
+                    </tr>
+                    <tr>
+                        <td>Coupon Codes</td>
+                        <td><span class="cell-config">CONFIG</span></td>
+                        <td>Marketing Coupons entity with code generation</td>
+                        <td>Banking-specific validation (requires extension)</td>
+                    </tr>
+                    <tr>
+                        <td>Referral Tracking</td>
+                        <td><span class="cell-config">CONFIG</span></td>
+                        <td>Relationships, connections, referral entity</td>
+                        <td>Dual reward tracking (requires config)</td>
+                    </tr>
+                    <tr>
+                        <td>Core Banking Integration</td>
+                        <td><span class="cell-extension">NO</span></td>
+                        <td>Data import/export tools only</td>
+                        <td>Real-time account validation (requires custom API)</td>
+                    </tr>
+                    <tr>
+                        <td>Credit Decision Engine</td>
+                        <td><span class="cell-extension">NO</span></td>
+                        <td>Not available</td>
+                        <td>Must integrate with LOS (custom development)</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <!-- SECTION 2: OOTB ENTITIES FOR OFFER CODES -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">🗃️</div>
+                    <div class="section-title">
+                        <h2>OOTB Data Model for Offer Codes</h2>
+                        <p>Standard Dynamics 365 Entities You Can Use</p>
+                    </div>
+                </div>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>
+                            Marketing Coupons
+                            <span class="badge-ootb">OOTB</span>
+                        </h3>
+                        <p style="color: #605e5c; margin-bottom: 15px;">Standard entity for managing promotional codes</p>
+                        <ul>
+                            <li>Auto-generated unique codes</li>
+                            <li>Customizable code patterns (prefix/suffix)</li>
+                            <li>Expiration date management</li>
+                            <li>Usage limit controls (total & per customer)</li>
+                            <li>Active/Inactive status</li>
+                            <li>Campaign association</li>
+                            <li>Customer assignment</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3>
+                            Campaigns
+                            <span class="badge-ootb">OOTB</span>
+                        </h3>
+                        <p style="color: #605e5c; margin-bottom: 15px;">Track marketing initiatives and offer distribution</p>
+                        <ul>
+                            <li>Campaign templates</li>
+                            <li>Planned vs. actual costs</li>
+                            <li>Timeline management</li>
+                            <li>Activity scheduling (emails, calls, mailings)</li>
+                            <li>Response tracking</li>
+                            <li>Lead/opportunity association</li>
+                            <li>Status workflow (Planning → Launched → Completed)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3>
+                            Marketing Lists
+                            <span class="badge-ootb">OOTB</span>
+                        </h3>
+                        <p style="color: #605e5c; margin-bottom: 15px;">Segment customers for targeted offers</p>
+                        <ul>
+                            <li>Static lists (fixed members)</li>
+                            <li>Dynamic lists (auto-updated by query)</li>
+                            <li>Subscription management</li>
+                            <li>Opt-in/opt-out tracking</li>
+                            <li>Lock/unlock for campaigns</li>
+                            <li>Duplicate detection</li>
+                            <li>Import from Excel/CSV</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3>
+                            Customer Insights - Journeys
+                            <span class="badge-ootb">OOTB</span>
+                        </h3>
+                        <p style="color: #605e5c; margin-bottom: 15px;">Automated customer interaction orchestration</p>
+                        <ul>
+                            <li>Visual journey designer</li>
+                            <li>Trigger-based automation</li>
+                            <li>Email/SMS/Push channels</li>
+                            <li>Wait/delay tiles</li>
+                            <li>Branching logic (if/then)</li>
+                            <li>A/B testing</li>
+                            <li>Analytics and reporting</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card config">
+                        <h3>
+                            Referral Configuration
+                            <span class="badge-config">CONFIG</span>
+                        </h3>
+                        <p style="color: #605e5c; margin-bottom: 15px;">Use standard entities with custom fields</p>
+                        <ul>
+                            <li>Connections/Relationships (OOTB)</li>
+                            <li>Custom "Referral Code" field on Contact</li>
+                            <li>Custom "Referred By" lookup</li>
+                            <li>Workflow for code generation</li>
+                            <li>Business process flow for tracking</li>
+                            <li>Rollup field for referral count</li>
+                            <li>Dashboard with OOTB charts</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card config">
+                        <h3>
+                            Product Catalog
+                            <span class="badge-config">CONFIG</span>
+                        </h3>
+                        <p style="color: #605e5c; margin-bottom: 15px;">OOTB Product entity adapted for banking</p>
+                        <ul>
+                            <li>Product families (Credit Cards, DDA, etc.)</li>
+                            <li>Price lists (fees, rates)</li>
+                            <li>Product properties (features)</li>
+                            <li>Relationships (bundles)</li>
+                            <li>Valid from/to dates</li>
+                            <li>Subject hierarchy</li>
+                            <li>Unit groups (each, percentage)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="spec-block">
+                    <h4>OOTB Marketing Coupon Specifications</h4>
+                    <div class="spec-item">
+                        <span class="spec-label">Code Generation</span>
+                        <span class="spec-value">Random alphanumeric (configurable length)</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Pattern Support</span>
+                        <span class="spec-value">Prefix + Random + Suffix (e.g., BANK-####-2024)</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Character Set</span>
+                        <span class="spec-value">A-Z, 0-9 (uppercase only, no special chars)</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Max Length</span>
+                        <span class="spec-value">100 characters (recommended: 8-20)</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Uniqueness</span>
+                        <span class="spec-value">Enforced at entity level (no duplicates)</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Expiration</span>
+                        <span class="spec-value">Date/time field with timezone support</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Usage Limits</span>
+                        <span class="spec-value">Total redemptions + Per customer limits</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SECTION 3: NEW ACCOUNT OFFERS - OOTB -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">🆕</div>
+                    <div class="section-title">
+                        <h2>New Account Offers (OOTB)</h2>
+                        <p>Refer-a-Friend & Direct Mail Using Standard Features</p>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <h4>OOTB Approach for Your Banking Requirements</h4>
+                    <p>While Dynamics 365 doesn't have "banking-specific" new account offer features, you can achieve your requirements using standard Marketing and Sales capabilities with configuration only.</p>
+                </div>
+                
+                <h3 style="color: #323130; margin: 30px 0 20px 0;">A. Refer-a-Friend (OOTB Configuration)</h3>
+                
+                <table class="ootb-table">
+                    <tr>
+                        <th>Banking Requirement</th>
+                        <th>OOTB Solution</th>
+                        <th>Configuration Steps</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr>
+                        <td>Unique referral code generation</td>
+                        <td>Marketing Coupons</td>
+                        <td>Create coupon with pattern REF-[ContactID]-####</td>
+                        <td><span class="cell-ootb">OOTB</span></td>
+                    </tr>
+                    <tr>
+                        <td>Referrer tracking</td>
+                        <td>Contact entity + Connections</td>
+                        <td>Add "Referrer" lookup field to Contact form</td>
+                        <td><span class="cell-config">CONFIG</span></td>
+                    </tr>
+                    <tr>
+                        <td>Code sharing (email/SMS)</td>
+                        <td>Customer Insights - Journeys</td>
+                        <td>Create journey with "Send Email" tile containing coupon code</td>
+                        <td><span class="cell-ootb">OOTB</span></td>
+                    </tr>
+                    <tr>
+                        <td>Redemption tracking</td>
+                        <td>Campaign Response entity</td>
+                        <td>Create response when code used, status = "Redeemed"</td>
+                        <td><span class="cell-ootb">OOTB</span></td>
+                    </tr>
+                    <tr>
+                        <td>Reward payment tracking</td>
+                        <td>Custom fields on Contact</td>
+                        <td>Add "Referral Reward Amount" and "Reward Status" fields</td>
+                        <td><span class="cell-config">CONFIG</span></td>
+                    </tr>
+                    <tr>
+                        <td>Expiration management</td>
+                        <td>Workflow + Bulk Delete</td>
+                        <td>System workflow to deactivate expired codes nightly</td>
+                        <td><span class="cell-config">CONFIG</span></td>
+                    </tr>
+                    <tr>
+                        <td>Duplicate prevention</td>
+                        <td>Duplicate Detection Rules</td>
+                        <td>Rule: Same email = duplicate contact</td>
+                        <td><span class="cell-ootb">OOTB</span></td>
+                    </tr>
+                </table>
+                
+                <div class="process-flow">
+                    <div class="process-step">
+                        <div class="step-title">Customer Clicks "Refer"</div>
+                        <span class="step-ootb">OOTB Portal</span>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-title">System Creates Coupon</div>
+                        <span class="step-ootb">OOTB Entity</span>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-title">Email Sent with Code</div>
+                        <span class="step-ootb">OOTB Journey</span>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-title">Friend Uses Code</div>
+                        <span class="step-config">CONFIG Form</span>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-title">Campaign Response Created</div>
+                        <span class="step-ootb">OOTB Entity</span>
+                    </div>
+                </div>
+                
+                <h3 style="color: #323130; margin: 40px 0 20px 0;">B. Direct Mail Mailing Codes (OOTB)</h3>
+                
+                <table class="ootb-table">
+                    <tr>
+                        <th>Banking Requirement</th>
+                        <th>OOTB Solution</th>
+                        <th>Configuration Steps</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr>
+                        <td>Prospect list import</td>
+                        <td>Data Import Wizard</td>
+                        <td>Import CSV to Leads with mapping</td>
+                        <td><span class="cell-ootb">OOTB</span></td>
+                    </tr>
+                    <tr>
+                        <td>Unique code assignment</td>
+                        <td>Marketing Coupons + Flow</td>
+                        <td>Power Automate to generate codes for imported leads</td>
+                        <td><span class="cell-config">CONFIG</span></td>
+                    </tr>
+                    <tr>
+                        <td>Letter template</td>
+                        <td>Word Templates</td>
+                        <td>Create Word template with coupon code merge field</td>
+                        <td><span class="cell-ootb">OOTB</span></td>
+                    </tr>
+                    <tr>
+                        <td>Mail house export</td>
+                        <td>Excel Online + Power Automate</td>
+                        <td>Scheduled flow to export new codes to Excel</td>
+                        <td><span class="cell-config">CONFIG</span></td>
+                    </tr>
+                    <tr>
+                        <td>Response tracking</td>
+                        <td>Campaign + Campaign Response</td>
+                        <td>Create campaign, associate responses when codes used</td>
+                        <td><span class="cell-ootb">OOTB</span></td>
+                    </tr>
+                    <tr>
+                        <td>Attribution reporting</td>
+                        <td>Campaign Performance Reports</td>
+                        <td>Use OOTB campaign ROI dashboard</td>
+                        <td><span class="cell-ootb">OOTB</span></td>
+                    </tr>
+                </table>
+                
+                <div class="limitation-box">
+                    <h4>OOTB Limitations for New Account Offers</h4>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>No automatic account opening validation:</strong> Cannot check if account actually opened in core banking without integration</li>
+                        <li><strong>No reward payment automation:</strong> Cannot trigger ACH/credit to core banking system without custom API</li>
+                        <li><strong>No real-time balance checks:</strong> Cannot verify minimum balance requirements OOTB</li>
+                        <li><strong>No 1099 tax reporting:</strong> Must export data to tax system manually or via integration</li>
+                        <li><strong>No fraud pattern detection:</strong> Basic duplicate checking only, no velocity checks</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- SECTION 4: CAMPAIGN OFFER CODES - OOTB -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">📢</div>
+                    <div class="section-title">
+                        <h2>Campaign Offer Codes (OOTB)</h2>
+                        <p>Credit Cards, NON-DDA, Treasury, Merchant, HSA</p>
+                    </div>
+                </div>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>
+                            Credit Card Campaigns
+                            <span class="badge-ootb">OOTB</span>
+                        </h3>
+                        <p style="color: #605e5c; margin-bottom: 15px;">Product-based offer management</p>
+                        <ul>
+                            <li>Product catalog for card types</li>
+                            <li>Price lists for APR tiers</li>
+                            <li>Campaign-specific pricing</li>
+                            <li>Opportunity tracking for applications</li>
+                            <li>Competitor tracking (OOTB field)</li>
+                            <li>Quote/Order for terms presentation</li>
+                            <li>Sales process workflow</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card config">
+                        <h3>
+                            NON-DDA (CDs, IRAs, Investments)
+                            <span class="badge-config">CONFIG</span>
+                        </h3>
+                        <p style="color: #605e5c; margin-bottom: 15px;">Standard product entity adapted</p>
+                        <ul>
+                            <li>Product entity with custom fields (Term, Maturity Date)</li>
+                            <li>Price lists for interest rates</li>
+                            <li>Opportunity for account opening</li>
+                            <li>Business process flow for suitability</li>
+                            <li>Document management for disclosures</li>
+                            <li>Activity tracking for follow-ups</li>
+                            <li>Rollup fields for total deposits</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card config">
+                        <h3>
+                            Treasury (Positive Pay)
+                            <span class="badge-config">CONFIG</span>
+                        </h3>
+                        <p style="color: #605e5c; margin-bottom: 15px;">Service opportunity tracking</p>
+                        <ul>
+                            <li>Opportunity entity for service sales</li>
+                            <li>Product for service types</li>
+                            <li>Quote for pricing presentation</li>
+                            <li>Contract entity for service agreements</li>
+                            <li>Case entity for implementation</li>
+                            <li>SLA for service levels</li>
+                            <li>Entitlement for support</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card config">
+                        <h3>
+                            Merchant Services
+                            <span class="badge-config">CONFIG</span>
+                        </h3>
+                        <p style="color: #605e5c; margin-bottom: 15px;">B2B opportunity management</p>
+                        <ul>
+                            <li>Account entity for business customers</li>
+                            <li>Opportunity for merchant application</li>
+                            <li>Quote for rate presentation</li>
+                            <li>Competitor tracking</li>
+                            <li>Stakeholder management</li>
+                            <li>Document generation for agreements</li>
+                            <li>Team collaboration features</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card config">
+                        <h3>
+                            HSA Campaigns
+                            <span class="badge-config">CONFIG</span>
+                        </h3>
+                        <p style="color: #605e5c; margin-bottom: 15px;">Healthcare savings tracking</p>
+                        <ul>
+                            <li>Contact/Account for individuals/employers</li>
+                            <li>Opportunity for enrollment</li>
+                            <li>Custom fields for eligibility (HDHP status)</li>
+                            <li>Activity tracking for education</li>
+                            <li>Marketing lists for employer groups</li>
+                            <li>Journeys for onboarding</li>
+                            <li>Case management for questions</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3>
+                            Campaign Orchestration
+                            <span class="badge-ootb">OOTB</span>
+                        </h3>
+                        <p style="color: #605e5c; margin-bottom: 15px;">Customer Insights - Journeys</p>
+                        <ul>
+                            <li>Multi-channel campaigns (email, SMS, push)</li>
+                            <li>Trigger-based automation</li>
+                            <li>Segment-based targeting</li>
+                            <li>A/B testing for offer variations</li>
+                            <li>Real-time analytics</li>
+                            <li>Consent management</li>
+                            <li>Personalization tokens</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h3 style="color: #323130; margin: 30px 0 20px 0;">OOTB Campaign Management Features</h3>
+                
+                <table class="ootb-table matrix-table">
+                    <tr>
+                        <th>Feature</th>
+                        <th>Credit Card</th>
+                        <th>NON-DDA</th>
+                        <th>Treasury</th>
+                        <th>Merchant</th>
+                        <th>HSA</th>
+                    </tr>
+                    <tr>
+                        <td>Product Catalog</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                    </tr>
+                    <tr>
+                        <td>Price Lists</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                    </tr>
+                    <tr>
+                        <td>Opportunity Tracking</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                    </tr>
+                    <tr>
+                        <td>Quote Generation</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td class="partial">~</td>
+                    </tr>
+                    <tr>
+                        <td>Workflow Automation</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                    </tr>
+                    <tr>
+                        <td>Document Templates</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                    </tr>
+                    <tr>
+                        <td>Approval Processes</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                    </tr>
+                    <tr>
+                        <td>Real-time Core Banking Validation</td>
+                        <td class="cross">✗</td>
+                        <td class="cross">✗</td>
+                        <td class="cross">✗</td>
+                        <td class="cross">✗</td>
+                        <td class="cross">✗</td>
+                    </tr>
+                </table>
+                <p style="margin-top: 15px; color: #605e5c; font-size: 0.9em;">
+                    <span class="check">✓</span> Full OOTB Support | 
+                    <span class="partial">~</span> Partial (Limited Quotes for simple products) | 
+                    <span class="cross">✗</span> Requires Custom Integration
+                </p>
+            </div>
+            
+            <!-- SECTION 5: PRE-APPROVED CREDIT CARDS - OOTB -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">💳</div>
+                    <div class="section-title">
+                        <h2>Pre-Approved Credit Cards (OOTB)</h2>
+                        <p>Reservation Numbers & Pre-Screening</p>
+                    </div>
+                </div>
+                
+                <div class="warning-box">
+                    <h4>Critical OOTB Limitation</h4>
+                    <p><strong>Dynamics 365 does NOT have OOTB credit bureau integration or soft pull capabilities.</strong> Pre-approved offers require credit data that must come from external sources (Experian, Equifax, TransUnion). However, you can manage the process and data using OOTB features once the credit data is imported.</p>
+                </div>
+                
+                <h3 style="color: #323130; margin: 30px 0 20px 0;">What IS Possible OOTB (After Data Import)</h3>
+                
+                <table class="ootb-table">
+                    <tr>
+                        <th>Requirement</th>
+                        <th>OOTB Solution</th>
+                        <th>How It Works</th>
+                        <th>Data Source</th>
+                    </tr>
+                    <tr>
+                        <td>Reservation number generation</td>
+                        <td>Marketing Coupons</td>
+                        <td>Create coupons with pattern PRE-[Segment]-####</td>
+                        <td>D365 Generated</td>
+                    </tr>
+                    <tr>
+                        <td>Pre-approved customer list</td>
+                        <td>Marketing List (Dynamic)</td>
+                        <td>Query: Credit Score > 720, No recent delinquency</td>
+                        <td>Imported from Bureau</td>
+                    </tr>
+                    <tr>
+                        <td>Offer personalization</td>
+                        <td>Customer Insights - Journeys</td>
+                        <td>Dynamic content based on credit tier fields</td>
+                        <td>Contact custom fields</td>
+                    </tr>
+                    <tr>
+                        <td>Response tracking</td>
+                        <td>Campaign Response</td>
+                        <td>Record when customer uses reservation number</td>
+                        <td>Manual entry or import</td>
+                    </tr>
+                    <tr>
+                        <td>Application routing</td>
+                        <td>Business Process Flow</td>
+                        <td>Stage: Pre-approved → Application → Decision → Funded</td>
+                        <td>D365 workflow</td>
+                    </tr>
+                    <tr>
+                        <td>Offer expiration</td>
+                        <td>Workflow + Field</td>
+                        <td>Date field with workflow to update status</td>
+                        <td>D365 calculated</td>
+                    </tr>
+                    <tr>
+                        <td>Opt-out management</td>
+                        <td>Marketing List Exclusions</td>
+                        <td>Suppress customers who opted out of pre-screened offers</td>
+                        <td>Manual list or import</td>
+                    </tr>
+                </table>
+                
+                <div class="spec-block">
+                    <h4>OOTB Data Structure for Pre-Approved Offers</h4>
+                    <div class="spec-item">
+                        <span class="spec-label">Entity</span>
+                        <span class="spec-value">Marketing Coupon (standard)</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Code Pattern</span>
+                        <span class="spec-value">PRE-[Month][Year]-[Segment]-[Random4]</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Customer Segmentation</span>
+                        <span class="spec-value">Marketing List with query on custom "Credit Tier" field</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Offer Terms Storage</span>
+                        <span class="spec-value">Coupon "Description" field or related Product</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Response Method</span>
+                        <span class="spec-value">Campaign Response entity (Phone, Web, Mail)</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Decision Tracking</span>
+                        <span class="spec-value">Opportunity entity with custom "Decision" field</span>
+                    </div>
+                </div>
+                
+                <div class="limitation-box">
+                    <h4>What Requires Extension/Integration</h4>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>Credit Bureau Soft Pull:</strong> Must purchase Experian Connect, Equifax, or TransUnion API integration (third-party or custom)</li>
+                        <li><strong>Real-time Credit Decision:</strong> D365 has no OOTB credit scoring engine</li>
+                        <li><strong>Hard Inquiry Recording:</strong> No OOTB integration with credit bureaus for hard pulls</li>
+                        <li><strong>Adverse Action Notice Generation:</strong> Can create document template OOTB, but auto-population requires integration</li>
+                        <li><strong>Firm Offer of Credit Compliance:</strong> Requires custom validation logic to ensure offer honored</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- SECTION 6: OOTB AUTOMATION -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">⚡</div>
+                    <div class="section-title">
+                        <h2>OOTB Automation Tools</h2>
+                        <p>Power Automate, Workflows, Business Rules</p>
+                    </div>
+                </div>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>
+                            Power Automate
+                            <span class="badge-ootb">OOTB</span>
+                        </h3>
+                        <p style="color: #605e5c; margin-bottom: 15px;">No-code automation (formerly Flow)</p>
+                        <ul>
+                            <li>Scheduled flows (daily/hourly)</li>
+                            <li>Triggered flows (on record create/update)</li>
+                            <li>Instant flows (button clicks)</li>
+                            <li>Approval workflows</li>
+                            <li>Email notifications</li>
+                            <li>Data synchronization</li>
+                            <li>Excel/SharePoint integration</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3>
+                            Classic Workflows
+                            <span class="badge-ootb">OOTB</span>
+                        </h3>
+                        <p style="color: #605e5c; margin-bottom: 15px;">D365 native automation</p>
+                        <ul>
+                            <li>Background processes</li>
+                            <li>Real-time workflows</li>
+                            <li>Field updates</li>
+                            <li>Record creation</li>
+                            <li>Status changes</li>
+                            <li>Email sends</li>
+                            <li>Task assignment</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3>
+                            Business Rules
+                            <span class="badge-ootb">OOTB</span>
+                        </h3>
+                        <p style="color: #605e5c; margin-bottom: 15px;">Form-level logic</p>
+                        <ul>
+                            <li>Field visibility (show/hide)</li>
+                            <li>Field locking (read-only)</li>
+                            <li>Required field validation</li>
+                            <li>Default values</li>
+                            <li>Error messages</li>
+                            <li>Section visibility</li>
+                            <li>Tab management</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3>
+                            Business Process Flows
+                            <span class="badge-ootb">OOTB</span>
+                        </h3>
+                        <p style="color: #605e5c; margin-bottom: 15px;">Guided user experience</p>
+                        <ul>
+                            <li>Stage-gate processes</li>
+                            <li>Required fields per stage</li>
+                            <li>Branching logic</li>
+                            <li>Timeline visualization</li>
+                            <li>Cross-entity flows</li>
+                            <li>Mobile support</li>
+                            <li>Security by stage</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h3 style="color: #323130; margin: 30px 0 20px 0;">OOTB Automation for Offer Codes</h3>
+                
+                <table class="ootb-table">
+                    <tr>
+                        <th>Automation Need</th>
+                        <th>OOTB Tool</th>
+                        <th>Configuration Complexity</th>
+                        <th>Trigger</th>
+                    </tr>
+                    <tr>
+                        <td>Generate code on customer action</td>
+                        <td>Power Automate</td>
+                        <td>Low</td>
+                        <td>Button click or form submission</td>
+                    </tr>
+                    <tr>
+                        <td>Send email with code</td>
+                        <td>Power Automate or Journey</td>
+                        <td>Low</td>
+                        <td>Record creation or schedule</td>
+                    </tr>
+                    <tr>
+                        <td>Check code expiration daily</td>
+                        <td>Scheduled Power Automate</td>
+                        <td>Medium</td>
+                        <td>Time-based (daily at 6 AM)</td>
+                    </tr>
+                    <tr>
+                        <td>Update status when code used</td>
+                        <td>Real-time Workflow</td>
+                        <td>Low</td>
+                        <td>Field update</td>
+                    </tr>
+                    <tr>
+                        <td>Calculate reward amount</td>
+                        <td>Calculated Field or Flow</td>
+                        <td>Low</td>
+                        <td>Field change or schedule</td>
+                    </tr>
+                    <tr>
+                        <td>Validate customer eligibility</td>
+                        <td>Business Rule + Workflow</td>
+                        <td>Medium</td>
+                        <td>Form load or field change</td>
+                    </tr>
+                    <tr>
+                        <td>Route for approval</td>
+                        <td>Approval Workflow</td>
+                        <td>Low</td>
+                        <td>Status change</td>
+                    </tr>
+                    <tr>
+                        <td>Notify team of redemption</td>
+                        <td>Power Automate</td>
+                        <td>Low</td>
+                        <td>Record creation</td>
+                    </tr>
+                    <tr>
+                        <td>Create follow-up task</td>
+                        <td>Workflow</td>
+                        <td>Low</td>
+                        <td>Status change</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <!-- SECTION 7: REPORTING & ANALYTICS OOTB -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">📊</div>
+                    <div class="section-title">
+                        <h2>OOTB Reporting & Analytics</h2>
+                        <p>Dashboards, Views, and Power BI Integration</p>
+                    </div>
+                </div>
+                
+                <div class="summary-grid">
+                    <div class="summary-card">
+                        <div class="summary-number">50+</div>
+                        <div class="summary-label">OOTB Report Types</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-number">∞</div>
+                        <div class="summary-label">Customizable Views</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-number">Real-time</div>
+                        <div class="summary-label">Dashboard Updates</div>
+                    </div>
+                </div>
+                
+                <h3 style="color: #323130; margin: 30px 0 20px 0;">OOTB Reporting Capabilities</h3>
+                
+                <table class="ootb-table">
+                    <tr>
+                        <th>Report Type</th>
+                        <th>OOTB Features</th>
+                        <th>Offer Code Application</th>
+                        <th>Export Options</th>
+                    </tr>
+                    <tr>
+                        <td>System Views</td>
+                        <td>Advanced Find, Filtered lists, Sorting, Grouping</td>
+                        <td>All redemptions this month, Expired codes, Pending rewards</td>
+                        <td>Excel, PDF, CSV</td>
+                    </tr>
+                    <tr>
+                        <td>Charts</td>
+                        <td>Bar, Pie, Line, Funnel charts; Drill-down</td>
+                        <td>Redemptions by channel, Campaign ROI, Geographic distribution</td>
+                        <td>Image, Web page</td>
+                    </tr>
+                    <tr>
+                        <td>Dashboards</td>
+                        <td>Interactive tiles, Real-time updates, Multiple components</td>
+                        <td>Marketing manager dashboard, Executive summary, Operations monitor</td>
+                        <td>PDF snapshot</td>
+                    </tr>
+                    <tr>
+                        <td>Report Wizard</td>
+                        <td>Table, Chart, Crosstab reports; Grouping; Formulas</td>
+                        <td>Detailed redemption report with customer info</td>
+                        <td>PDF, Excel, Word</td>
+                    </tr>
+                    <tr>
+                        <td>Excel Templates</td>
+                        <td>Data export with formatting, Pivot tables, Charts</td>
+                        <td>Ad-hoc analysis, What-if scenarios</td>
+                        <td>Excel</td>
+                    </tr>
+                    <tr>
+                        <td>Word Templates</td>
+                        <td>Mail merge, Document generation, Repeating sections</td>
+                        <td>Customer letters, Offer terms, Disclosure documents</td>
+                        <td>Word, PDF</td>
+                    </tr>
+                    <tr>
+                        <td>Power BI (Basic)</td>
+                        <td>DirectQuery, Scheduled refresh, Shared dashboards</td>
+                        <td>Advanced analytics, Trend analysis, Predictive modeling</td>
+                        <td>Web, Mobile, PDF</td>
+                    </tr>
+                </table>
+                
+                <div class="spec-block">
+                    <h4>OOTB Campaign Performance Metrics Available</h4>
+                    <div class="spec-item">
+                        <span class="spec-label">Response Rate</span>
+                        <span class="spec-value">Campaign Responses / Total Targeted</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Cost Per Response</span>
+                        <span class="spec-value">Total Campaign Cost / Number of Responses</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Lead Conversion Rate</span>
+                        <span class="spec-value">Converted Leads / Total Leads Generated</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Opportunity Win Rate</span>
+                        <span class="spec-value">Won Opportunities / Total Opportunities</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Revenue Attribution</span>
+                        <span class="spec-value">Actual Revenue from Campaign (Opportunity values)</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">ROI Calculation</span>
+                        <span class="spec-value">(Revenue - Cost) / Cost</span>
+                    </div>
+                </div>
+                
+                <div class="limitation-box">
+                    <h4>OOTB Reporting Limitations</h4>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li><strong>No real-time core banking data:</strong> Cannot show actual account balances or transaction history without integration</li>
+                        <li><strong>No cross-system attribution:</strong> Cannot track if customer saw mailer then opened account online vs. branch without manual correlation</li>
+                        <li><strong>Limited historical trending:</strong> OOTB views show current state; historical analysis requires Power BI or data export</li>
+                        <li><strong>No predictive analytics:</strong> OOTB reporting is descriptive, not predictive (need AI Builder or Power BI for predictions)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- SECTION 8: SECURITY & COMPLIANCE OOTB -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">🔒</div>
+                    <div class="section-title">
+                        <h2>OOTB Security & Compliance</h2>
+                        <p>Role-Based Security, Auditing, Data Protection</p>
+                    </div>
+                </div>
+                
+                <table class="ootb-table">
+                    <tr>
+                        <th>Security Feature</th>
+                        <th>OOTB Capability</th>
+                        <th>Banking Application</th>
+                        <th>Configuration Required</th>
+                    </tr>
+                    <tr>
+                        <td>Role-Based Security</td>
+                        <td>Security roles with 500+ permissions</td>
+                        <td>Separate roles for Marketing, Branch, Compliance, Admin</td>
+                        <td>Create custom roles</td>
+                    </tr>
+                    <tr>
+                        <td>Field-Level Security</td>
+                        <td>Encrypt/hide sensitive fields by role</td>
+                        <td>Hide SSN, Account numbers from general users</td>
+                        <td>Configure field profiles</td>
+                    </tr>
+                    <tr>
+                        <td>Hierarchical Security</td>
+                        <td>Manager/position-based access</td>
+                        <td>Branch managers see their branch only</td>
+                        <td>Set up hierarchy</td>
+                    </tr>
+                    <tr>
+                        <td>Audit History</td>
+                        <td>Track all record changes (who, what, when)</td>
+                        <td>Comply with banking regulations (SOX, GLBA)</td>
+                        <td>Enable auditing per entity</td>
+                    </tr>
+                    <tr>
+                        <td>Data Loss Prevention</td>
+                        <td>Prevent export of sensitive data</td>
+                        <td>Block bulk export of customer lists</td>
+                        <td>Create DLP policies</td>
+                    </tr>
+                    <tr>
+                        <td>IP Restrictions</td>
+                        <td>Limit access by IP address range</td>
+                        <td>Branch-only access for tellers</td>
+                        <td>Configure in Admin center</td>
+                    </tr>
+                    <tr>
+                        <td>Multi-Factor Auth</td>
+                        <td>Azure AD MFA integration</td>
+                        <td>Required for admin and compliance users</td>
+                        <td>Enable in Azure AD</td>
+                    </tr>
+                    <tr>
+                        <td>Data Encryption</td>
+                        <td>AES-256 at rest, TLS 1.2 in transit</td>
+                        <td>Encrypt all customer PII</td>
+                        <td>Automatic (no config)</td>
+                    </tr>
+                    <tr>
+                        <td>Retention Policies</td>
+                        <td>Auto-delete old records per policy</td>
+                        <td>7-year retention for account records</td>
+                        <td>Create retention policies</td>
+                    </tr>
+                </table>
+                
+                <div class="info-box ootb-box">
+                    <h4>OOTB Compliance Features for Banking</h4>
+                    <p><strong>GDPR:</strong> Data subject requests (export, delete), consent tracking, privacy preferences<br>
+                    <strong>CCPA:</strong> Consumer rights management, opt-out tracking<br>
+                    <strong>SOX:</strong> Audit trails, segregation of duties, approval workflows<br>
+                    <strong>GLBA:</strong> Privacy notices, opt-out management, access controls (requires configuration)<br>
+                    <strong>PCI DSS:</strong> No OOTB PCI compliance (cannot store PANs without significant customization)</p>
+                </div>
+            </div>
+            
+            <!-- SECTION 9: SUMMARY & GAPS -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">📋</div>
+                    <div class="section-title">
+                        <h2>OOTB Coverage Summary</h2>
+                        <p>What's Included vs. What Requires Extension</p>
+                    </div>
+                </div>
+                
+                <h3 style="color: #323130; margin: 30px 0 20px 0;">Complete OOTB Coverage Matrix</h3>
+                
+                <table class="ootb-table matrix-table">
+                    <tr>
+                        <th>Requirement</th>
+                        <th>OOTB</th>
+                        <th>Config</th>
+                        <th>Extension</th>
+                        <th>Notes</th>
+                    </tr>
+                    <tr>
+                        <td colspan="5" style="background: #f3f2f1; font-weight: 700;">NEW ACCOUNT OFFERS</td>
+                    </tr>
+                    <tr>
+                        <td>Unique referral code generation</td>
+                        <td class="check">✓</td>
+                        <td></td>
+                        <td></td>
+                        <td>Marketing Coupons</td>
+                    </tr>
+                    <tr>
+                        <td>Referrer-referee relationship tracking</td>
+                        <td></td>
+                        <td class="partial">~</td>
+                        <td></td>
+                        <td>Custom fields on Contact</td>
+                    </tr>
+                    <tr>
+                        <td>Email/SMS code delivery</td>
+                        <td class="check">✓</td>
+                        <td></td>
+                        <td></td>
+                        <td>Customer Insights - Journeys</td>
+                    </tr>
+                    <tr>
+                        <td>Code redemption tracking</td>
+                        <td class="check">✓</td>
+                        <td></td>
+                        <td></td>
+                        <td>Campaign Response</td>
+                    </tr>
+                    <tr>
+                        <td>Reward payment processing</td>
+                        <td></td>
+                        <td></td>
+                        <td class="cross">✗</td>
+                        <td>Requires core banking integration</td>
+                    </tr>
+                    <tr>
+                        <td>Account opening validation</td>
+                        <td></td>
+                        <td></td>
+                        <td class="cross">✗</td>
+                        <td>Requires core banking integration</td>
+                    </tr>
+                    <tr>
+                        <td>Direct mail list management</td>
+                        <td class="check">✓</td>
+                        <td></td>
+                        <td></td>
+                        <td>Marketing Lists + Import</td>
+                    </tr>
+                    <tr>
+                        <td>Mail house integration</td>
+                        <td></td>
+                        <td class="partial">~</td>
+                        <td></td>
+                        <td>Power Automate for export</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" style="background: #f3f2f1; font-weight: 700;">CAMPAIGN OFFERS</td>
+                    </tr>
+                    <tr>
+                        <td>Product catalog management</td>
+                        <td class="check">✓</td>
+                        <td></td>
+                        <td></td>
+                        <td>Product entity</td>
+                    </tr>
+                    <tr>
+                        <td>Offer code campaigns</td>
+                        <td class="check">✓</td>
+                        <td></td>
+                        <td></td>
+                        <td>Campaigns + Coupons</td>
+                    </tr>
+                    <tr>
+                        <td>Credit card application tracking</td>
+                        <td class="check">✓</td>
+                        <td></td>
+                        <td></td>
+                        <td>Opportunity entity</td>
+                    </tr>
+                    <tr>
+                        <td>NON-DDA account opening</td>
+                        <td></td>
+                        <td class="partial">~</td>
+                        <td></td>
+                        <td>Opportunity with custom fields</td>
+                    </tr>
+                    <tr>
+                        <td>Treasury service tracking</td>
+                        <td></td>
+                        <td class="partial">~</td>
+                        <td></td>
+                        <td>Case + Opportunity</td>
+                    </tr>
+                    <tr>
+                        <td>Merchant services onboarding</td>
+                        <td></td>
+                        <td class="partial">~</td>
+                        <td></td>
+                        <td>Account + Opportunity</td>
+                    </tr>
+                    <tr>
+                        <td>HSA enrollment tracking</td>
+                        <td></td>
+                        <td class="partial">~</td>
+                        <td></td>
+                        <td>Contact + Opportunity</td>
+                    </tr>
+                    <tr>
+                        <td>Real-time eligibility checks</td>
+                        <td></td>
+                        <td></td>
+                        <td class="cross">✗</td>
+                        <td>Requires external system integration</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" style="background: #f3f2f1; font-weight: 700;">PRE-APPROVED CREDIT CARDS</td>
+                    </tr>
+                    <tr>
+                        <td>Reservation number generation</td>
+                        <td class="check">✓</td>
+                        <td></td>
+                        <td></td>
+                        <td>Marketing Coupons</td>
+                    </tr>
+                    <tr>
+                        <td>Pre-approved list segmentation</td>
+                        <td></td>
+                        <td class="partial">~</td>
+                        <td></td>
+                        <td>Marketing List (needs imported credit data)</td>
+                    </tr>
+                    <tr>
+                        <td>Credit bureau soft pull</td>
+                        <td></td>
+                        <td></td>
+                        <td class="cross">✗</td>
+                        <td>Requires Experian/Equifax integration</td>
+                    </tr>
+                    <tr>
+                        <td>Personalized offer terms</td>
+                        <td class="check">✓</td>
+                        <td></td>
+                        <td></td>
+                        <td>Dynamic content in Journeys</td>
+                    </tr>
+                    <tr>
+                        <td>Response tracking</td>
+                        <td class="check">✓</td>
+                        <td></td>
+                        <td></td>
+                        <td>Campaign Response</td>
+                    </tr>
+                    <tr>
+                        <td>Application routing</td>
+                        <td></td>
+                        <td class="partial">~</td>
+                        <td></td>
+                        <td>Business Process Flow</td>
+                    </tr>
+                    <tr>
+                        <td>Credit decision integration</td>
+                        <td></td>
+                        <td></td>
+                        <td class="cross">✗</td>
+                        <td>Requires LOS integration</td>
+                    </tr>
+                    <tr>
+                        <td>Adverse action notices</td>
+                        <td></td>
+                        <td class="partial">~</td>
+                        <td></td>
+                        <td>Word Templates (manual population)</td>
+                    </tr>
+                </table>
+                
+                <div class="info-box" style="margin-top: 40px;">
+                    <h4>Final Assessment: What You Get OOTB</h4>
+                    <p><strong>Approximately 60-70% of your requirements</strong> can be met with OOTB Dynamics 365 features through configuration. This includes customer management, offer code generation, campaign orchestration, email marketing, basic tracking, and reporting.</p>
+                    <p style="margin-top: 15px;"><strong>The remaining 30-40%</strong> requires integration with core banking systems, credit bureaus, and payment processors. These are not limitations of Dynamics 365, but rather the reality that D365 is a CRM platform, not a core banking system.</p>
+                </div>
+                
+                <div class="ootb-box" style="margin-top: 30px;">
+                    <h4>Recommended Approach for Your Bank</h4>
+                    <p><strong>Phase 1 (OOTB Only):</strong> Implement customer management, marketing campaigns, offer code generation, and tracking using standard features. Use manual processes or Excel imports for core banking validation.<br><br>
+                    <strong>Phase 2 (Configuration):</strong> Add custom fields for banking-specific data, create workflows for automation, build dashboards for reporting.<br><br>
+                    <strong>Phase 3 (Integration):</strong> Add Power Automate flows for core banking APIs, credit bureau integration, and automated reward processing.</p>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- FOOTER -->
+        <div class="document-footer">
+            <p style="font-size: 1.3em; margin-bottom: 15px;">Dynamics 365 OOTB Features Reference</p>
+            <p style="opacity: 0.8; margin-bottom: 10px;">Based on Dynamics 365 2024 Release Wave 2</p>
+            <p style="opacity: 0.6; font-size: 0.9em;">Document focuses exclusively on standard Microsoft features. No custom code or third-party solutions included.</p>
+        </div>
+    </div>
+</body>
+</html>
